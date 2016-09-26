@@ -1,0 +1,9 @@
+[submodule "third_party/json"]
+	path = third_party/json
+	url = https://github.com/nlohmann/json.git
+[submodule "third_party/zi_lib"]
+	path = third_party/zi_lib
+	url = https://github.com/seung-lab/zi_lib.git
+[submodule "third_party/vmmlib"]
+	path = third_party/vmmlib
+	url = https://github.com/VMML/vmmlib
