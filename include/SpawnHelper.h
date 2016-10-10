@@ -82,18 +82,18 @@ namespace vmml {
   }
 
   //TODO: Better way to prevent underflow
-  template<>
-  AABB<int64_t> dilate(const AABB<int64_t> &aabb, const Vector<3, int64_t> &vec) {
-    AABB<int64_t> res(aabb);
+  /*template<>
+  AABB<size_t> dilate(const AABB<size_t> &aabb, const Vector<3, size_t> &vec) {
+    AABB<size_t> res(aabb);
 
-    Vector<3, int64_t> tmp = res.getMin() - vec;
+    Vector<3, size_t> tmp = res.getMin() - vec;
     res.getMin().x() = tmp.x() > res.getMin().x() ? 0 : tmp.x();
     res.getMin().y() = tmp.y() > res.getMin().y() ? 0 : tmp.y();
     res.getMin().z() = tmp.z() > res.getMin().z() ? 0 : tmp.z();
 
     res.getMax() += vec;
     return res;
-  }
+  }*/
 }
 
 /*****************************************************************/
