@@ -18,14 +18,6 @@ MetaDataType StringToMetaDataType(const std::string & str, uint8_t * sizeInByte)
     if (sizeInByte) *sizeInByte = 4;
     return MetaDataType::UInt32;
   }
-  /*else if (str == "Float32") {
-    if (sizeInByte) *sizeInByte = 4;
-    return MetaDataType::Float32;
-  }
-  else if (str == "Float64") {
-    if (sizeInByte) *sizeInByte = 8;
-    return MetaDataType::Float64;
-  }*/
   else {
     throw(std::string("Unsupported type '" + str + "'. Must be UInt8, UInt16, UInt32, Float32 or Float64."));
   }
@@ -33,67 +25,67 @@ MetaDataType StringToMetaDataType(const std::string & str, uint8_t * sizeInByte)
 
 /*****************************************************************/
 
-vmml::AABB<size_t> CVolume::empty_bbox = vmml::AABB<size_t>();
+vmml::AABB<int64_t> CVolume::empty_bbox = vmml::AABB<int64_t>();
 
 /*****************************************************************/
 
-CSegmentation::CSegmentation(const vmml::Vector<3, size_t> &dimensions) : dimensions_(dimensions)
+CSegmentation::CSegmentation(const vmml::Vector<3, int64_t> &dimensions) : dimensions_(dimensions)
 {
 }
 
-uint32_t CSegmentation::operator()(size_t x, size_t y, size_t z) const {
+uint32_t CSegmentation::operator()(int64_t x, int64_t y, int64_t z) const {
   return 0;
 }
 
-uint32_t CSegmentation::operator()(const vmml::Vector<3, size_t> & pos) const {
+uint32_t CSegmentation::operator()(const vmml::Vector<3, int64_t> & pos) const {
   return 0;
 }
 
 /*****************************************************************/
 
-CSegmentationUChar::CSegmentationUChar(const vmml::Vector<3, size_t> &dimensions, const uint8_t * segmentation) :
+CSegmentationUChar::CSegmentationUChar(const vmml::Vector<3, int64_t> &dimensions, const uint8_t * segmentation) :
   CSegmentation(dimensions),
   segmentation_(segmentation)
 {
 }
 
-uint32_t CSegmentationUChar::operator()(size_t x, size_t y, size_t z) const {
+uint32_t CSegmentationUChar::operator()(int64_t x, int64_t y, int64_t z) const {
   return segmentation_[x + y * dimensions_.x() + z * dimensions_.x() * dimensions_.y()];
 }
 
-uint32_t CSegmentationUChar::operator()(const vmml::Vector<3, size_t> & pos) const {
+uint32_t CSegmentationUChar::operator()(const vmml::Vector<3, int64_t> & pos) const {
   return segmentation_[pos.x() + pos.y() * dimensions_.x() + pos.z() * dimensions_.x() * dimensions_.y()];
 }
 
 /*****************************************************************/
 
-CSegmentationUShort::CSegmentationUShort(const vmml::Vector<3, size_t> &dimensions, const uint16_t * segmentation) :
+CSegmentationUShort::CSegmentationUShort(const vmml::Vector<3, int64_t> &dimensions, const uint16_t * segmentation) :
   CSegmentation(dimensions),
   segmentation_(segmentation)
 {
 }
 
-uint32_t CSegmentationUShort::operator()(size_t x, size_t y, size_t z) const {
+uint32_t CSegmentationUShort::operator()(int64_t x, int64_t y, int64_t z) const {
   return segmentation_[x + y * dimensions_.x() + z * dimensions_.x() * dimensions_.y()];
 }
 
-uint32_t CSegmentationUShort::operator()(const vmml::Vector<3, size_t> & pos) const {
+uint32_t CSegmentationUShort::operator()(const vmml::Vector<3, int64_t> & pos) const {
   return segmentation_[pos.x() + pos.y() * dimensions_.x() + pos.z() * dimensions_.x() * dimensions_.y()];
 }
 
 /*****************************************************************/
 
-CSegmentationUInt::CSegmentationUInt(const vmml::Vector<3, size_t> &dimensions, const uint32_t * segmentation) :
+CSegmentationUInt::CSegmentationUInt(const vmml::Vector<3, int64_t> &dimensions, const uint32_t * segmentation) :
   CSegmentation(dimensions),
   segmentation_(segmentation)
 {
 }
 
-uint32_t CSegmentationUInt::operator()(size_t x, size_t y, size_t z) const {
+uint32_t CSegmentationUInt::operator()(int64_t x, int64_t y, int64_t z) const {
   return segmentation_[x + y * dimensions_.x() + z * dimensions_.x() * dimensions_.y()];
 }
 
-uint32_t CSegmentationUInt::operator()(const vmml::Vector<3, size_t> & pos) const {
+uint32_t CSegmentationUInt::operator()(const vmml::Vector<3, int64_t> & pos) const {
   return segmentation_[pos.x() + pos.y() * dimensions_.x() + pos.z() * dimensions_.x() * dimensions_.y()];
 }
 
@@ -125,25 +117,25 @@ CVolume::~CVolume() {
 
 /*****************************************************************/
 
-const vmml::AABB<size_t> & CVolume::GetPhysicalBounds() const {
+const vmml::AABB<int64_t> & CVolume::GetPhysicalBounds() const {
     return meta_->GetPhysicalBounds();
 }
 
 /*****************************************************************/
 
-const vmml::Vector<3, size_t> & CVolume::GetVoxelResolution() const {
+const vmml::Vector<3, int64_t> & CVolume::GetVoxelResolution() const {
     return meta_->GetVoxelResolution();
 }
 
 /*****************************************************************/
 
-size_t CVolume::GetSegmentCount() const {
+int64_t CVolume::GetSegmentCount() const {
     return meta_->GetSegmentCount();
 }
 
 /*****************************************************************/
 
-const vmml::AABB<size_t> & CVolume::GetSegmentBoundsVolume(size_t segID) const {
+const vmml::AABB<int64_t> & CVolume::GetSegmentBoundsVolume(int64_t segID) const {
     if (segID < GetSegmentCount())
         return meta_->segments->boundsVolume[segID];
     else
@@ -152,7 +144,7 @@ const vmml::AABB<size_t> & CVolume::GetSegmentBoundsVolume(size_t segID) const {
 
 /*****************************************************************/
 
-const vmml::AABB<size_t> & CVolume::GetSegmentBoundsWorld(size_t segID) const {
+const vmml::AABB<int64_t> & CVolume::GetSegmentBoundsWorld(int64_t segID) const {
     if (segID < GetSegmentCount())
         return meta_->segments->boundsWorld[segID];
     else
@@ -161,7 +153,7 @@ const vmml::AABB<size_t> & CVolume::GetSegmentBoundsWorld(size_t segID) const {
 
 /*****************************************************************/
 
-size_t CVolume::GetSegmentSizeVoxel(size_t segID) const {
+int64_t CVolume::GetSegmentSizeVoxel(int64_t segID) const {
     if (segID < GetSegmentCount())
         return meta_->segments->sizes[segID];
     else
@@ -208,33 +200,33 @@ CVolumeMetadata::CSegments::CSegments(const CVolumeMetadata &meta, const std::ve
     case MetaDataType::UInt8: {
       const uint8_t * data = reinterpret_cast<const uint8_t *>(raw_bboxes.data());
       for (int i = 0; i < count; ++i) {
-        vmml::Vector<3,size_t> min(data[6*i+0], data[6*i+1], data[6*i+2]);
-        vmml::Vector<3,size_t> max(data[6*i+3], data[6*i+4], data[6*i+5]);
+        vmml::Vector<3, int64_t> min(data[6*i+0], data[6*i+1], data[6*i+2]);
+        vmml::Vector<3, int64_t> max(data[6*i+3], data[6*i+4], data[6*i+5]);
 
-        boundsVolume.push_back(vmml::AABB<size_t>(min, max));
-        boundsWorld.push_back(vmml::AABB<size_t>(min * meta.voxel_resolution + meta.physical_offset.getMin(), max * meta.voxel_resolution + meta.physical_offset.getMin()));
+        boundsVolume.push_back(vmml::AABB<int64_t>(min, max));
+        boundsWorld.push_back(vmml::AABB<int64_t>(min * meta.voxel_resolution + meta.physical_offset.getMin(), max * meta.voxel_resolution + meta.physical_offset.getMin()));
       }
       break;
     }
     case MetaDataType::UInt16: {
       const uint16_t * data = reinterpret_cast<const uint16_t *>(raw_bboxes.data());
       for (int i = 0; i < count; ++i) {
-        vmml::Vector<3,size_t> min(data[6*i+0], data[6*i+1], data[6*i+2]);
-        vmml::Vector<3,size_t> max(data[6*i+3], data[6*i+4], data[6*i+5]);
+        vmml::Vector<3, int64_t> min(data[6*i+0], data[6*i+1], data[6*i+2]);
+        vmml::Vector<3, int64_t> max(data[6*i+3], data[6*i+4], data[6*i+5]);
 
-        boundsVolume.push_back(vmml::AABB<size_t>(min, max));
-        boundsWorld.push_back(vmml::AABB<size_t>(min * meta.voxel_resolution + meta.physical_offset.getMin(), max * meta.voxel_resolution + meta.physical_offset.getMin()));
+        boundsVolume.push_back(vmml::AABB<int64_t>(min, max));
+        boundsWorld.push_back(vmml::AABB<int64_t>(min * meta.voxel_resolution + meta.physical_offset.getMin(), max * meta.voxel_resolution + meta.physical_offset.getMin()));
       }
       break;
     }
     case MetaDataType::UInt32: {
       const uint32_t * data = reinterpret_cast<const uint32_t *>(raw_bboxes.data());
       for (int i = 0; i < count; ++i) {
-        vmml::Vector<3,size_t> min(data[6*i+0], data[6*i+1], data[6*i+2]);
-        vmml::Vector<3,size_t> max(data[6*i+3], data[6*i+4], data[6*i+5]);
+        vmml::Vector<3, int64_t> min(data[6*i+0], data[6*i+1], data[6*i+2]);
+        vmml::Vector<3, int64_t> max(data[6*i+3], data[6*i+4], data[6*i+5]);
 
-        boundsVolume.push_back(vmml::AABB<size_t>(min, max));
-        boundsWorld.push_back(vmml::AABB<size_t>(min * meta.voxel_resolution + meta.physical_offset.getMin(), max * meta.voxel_resolution + meta.physical_offset.getMin()));
+        boundsVolume.push_back(vmml::AABB<int64_t>(min, max));
+        boundsWorld.push_back(vmml::AABB<int64_t>(min * meta.voxel_resolution + meta.physical_offset.getMin(), max * meta.voxel_resolution + meta.physical_offset.getMin()));
       }
       break;
     }
@@ -246,16 +238,16 @@ CVolumeMetadata::CSegments::CSegments(const CVolumeMetadata &meta, const std::ve
 CVolumeMetadata::CVolumeMetadata(const std::vector<unsigned char> &raw_json, const std::vector<unsigned char> &raw_bboxes, const std::vector<unsigned char> &raw_sizes) {
   auto metadata = json::parse(std::string(raw_json.begin(), raw_json.end()));
   auto tmpVec = metadata["physical_offset_min"];
-  physical_offset.setMin(vmml::Vector<3, size_t>(tmpVec[0], tmpVec[1], tmpVec[2]));
+  physical_offset.setMin(vmml::Vector<3, int64_t>(tmpVec[0], tmpVec[1], tmpVec[2]));
 
   tmpVec = metadata["physical_offset_max"];
-  physical_offset.setMax(vmml::Vector<3, size_t>(tmpVec[0], tmpVec[1], tmpVec[2]));
+  physical_offset.setMax(vmml::Vector<3, int64_t>(tmpVec[0], tmpVec[1], tmpVec[2]));
 
   tmpVec = metadata["chunk_voxel_dimensions"];
-  volume_dimensions = vmml::Vector<3, size_t>(tmpVec[0], tmpVec[1], tmpVec[2]);
+  volume_dimensions = vmml::Vector<3, int64_t>(tmpVec[0], tmpVec[1], tmpVec[2]);
 
   tmpVec = metadata["voxel_resolution"];
-  voxel_resolution = vmml::Vector<3, size_t>(tmpVec[0], tmpVec[1], tmpVec[2]);
+  voxel_resolution = vmml::Vector<3, int64_t>(tmpVec[0], tmpVec[1], tmpVec[2]);
 
   resolution_units = metadata["resolution_units"];
 
@@ -274,19 +266,19 @@ CVolumeMetadata::~CVolumeMetadata() {
 
 /*****************************************************************/
 
-const vmml::AABB<size_t> & CVolumeMetadata::GetPhysicalBounds() const {
+const vmml::AABB<int64_t> & CVolumeMetadata::GetPhysicalBounds() const {
     return physical_offset;
 }
 
 /*****************************************************************/
 
-const vmml::Vector<3, size_t> & CVolumeMetadata::GetVolumeDimensions() const {
+const vmml::Vector<3, int64_t> & CVolumeMetadata::GetVolumeDimensions() const {
     return volume_dimensions;
 }
 
 /*****************************************************************/
 
-const vmml::Vector<3, size_t> & CVolumeMetadata::GetVoxelResolution() const {
+const vmml::Vector<3, int64_t> & CVolumeMetadata::GetVoxelResolution() const {
     return voxel_resolution;
 }
 
@@ -304,7 +296,7 @@ uint8_t CVolumeMetadata::GetSegmentTypeSize() const {
 
 /*****************************************************************/
 
-size_t CVolumeMetadata::GetSegmentCount() const {
+int64_t CVolumeMetadata::GetSegmentCount() const {
     return segment_count;
 }
 

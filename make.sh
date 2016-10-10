@@ -24,10 +24,12 @@ ar rcs lib/liblzma_dec.a build/LzmaLib.o build/LzmaDec.o build/Alloc.o
 echo "Compiling RTM"
 $GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/LZMADecode.cpp -Wl,-Bstatic -llzma_dec -o build/LZMADecode.o
 $GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/CurlObject.cpp -Wl,-Bdynamic -lcurl -o build/CurlObject.o
-#$GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/SpawnHelper.cpp -o build/SpawnHelper.o
 $GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/Volume.cpp -o build/Volume.o
-$GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/main.cpp -o build/main.o
+$GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/SpawnerWrapper.cpp -o build/SpawnerWrapper.o
 
-$GCC $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS -o bin/spawner build/LZMADecode.o build/CurlObject.o build/Volume.o build/main.o -Wl,-Bstatic -llzma_dec -Wl,-Bdynamic -lcurl
+$GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/test.cpp -o build/test.o
+
+$GCC $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS -o bin/test build/LZMADecode.o build/CurlObject.o build/Volume.o build/test.o -Wl,-Bstatic -llzma_dec -Wl,-Bdynamic -lcurl
+
 #echo "Creating libspawner.so"
-#$GCC $CXXLIBS -shared -fPIC -o lib/libspawner.so build/LZMADec.o build/spawner.o -Wl,-Bstatic -llzma_dec -Wl,-Bdynamic
+$GCC $CXXLIBS -shared -fPIC -o lib/libspawner.so build/LZMADecode.o build/CurlObject.o build/Volume.o build/SpawnerWrapper.o -Wl,-Bstatic -llzma_dec -Wl,-Bdynamic -lcurl
