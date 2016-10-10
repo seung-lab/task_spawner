@@ -2,10 +2,11 @@
 let app = module.exports = require('./mykoa.js')();
 let ref        = require('ref');
 let ffi        = require('ffi');
-var Struct     = require('ref-struct');
+let Struct     = require('ref-struct');
 let fs         = require('fs');
 let mkdirp     = require('mkdirp');
 let send       = require('koa-send');
+let Bluebird   = require('bluebird');
 let rp         = require('request-promise');
 //let gcs        = require('@google-cloud/storage')();
 
@@ -51,9 +52,85 @@ function generateSpawnCandidates(pre_segmentation_path, post_segmentation_path, 
     return spawnSets;
 }
 
+app.post('/get_segment_data', null, {
+        bucket: { type: 'string' },
+        path: { type: 'string' },
+        segments: {
+            type: 'array',
+            itemType: 'int',
+            rule: { min: 0 }
+        }
+    }, function* () {
+
+        let {bucket, path, segments} = this.params;
+        let segmentation_path = `https://storage.googleapis.com/${bucket}/${path}`;
+
+        let req_meta           = rp({ url: segmentation_path + 'metadata.json' });
+        let req_options_sizes  = rp({ url: segmentation_path + 'segmentation.size', encoding : null });
+        let req_options_bounds = rp({ url: segmentation_path + 'segmentation.bbox', encoding : null });
+
+        var that = this;
+        yield Bluebird.all([req_meta, req_options_sizes, req_options_bounds])
+            .spread(function (resp_meta, resp_sizes, resp_bounds) {
+                meta = JSON.parse(resp_meta);
+                
+                //sizes = new ArrayBuffer(resp_sizes);
+                //bounds = new ArrayBuffer(resp_bounds);
+
+                let sizesView, boxesView
+                if (meta.size_type == "UInt16") {
+                    sizesView = new Uint16Array(resp_sizes.buffer);
+                    
+                } else if (meta.size_type == "UInt32") {
+                    sizesView = new Uint32Array(resp_sizes.buffer);
+                }
+
+                if (meta.bounding_box_type == "UInt8") {
+                    boxesView = new Uint8Array(resp_bounds.buffer);
+                } else if (meta.bounding_box_type == "UInt16") {
+                    boxesView = new Uint16Array(resp_bounds.buffer);
+                    console.log(boxesView[0]);
+                }
+                else if (meta.bounding_box_type == "UInt32") {
+                    boxesView = new Uint32Array(resp_bounds.buffer);
+                }
+
+
+                let result = {};
+                for (let i = 0; i < segments.length; ++i) {
+                    let segID = segments[i];
+                    let size = sizesView[segID];
+                    let bounds = {
+                        "min": {
+                            "x": boxesView[6 * segID + 0],
+                            "y": boxesView[6 * segID + 1],
+                            "z": boxesView[6 * segID + 2]
+                        },
+                        "max": {
+                            "x": boxesView[6 * segID + 3],
+                            "y": boxesView[6 * segID + 4],
+                            "z": boxesView[6 * segID + 5]
+                        }
+                    };
+                    result[segID] = { "size": size, "bounds": bounds };
+                }
+                //console.log(result);
+                console.log("settingbody");
+                that.body = JSON.stringify(result);
+
+            })
+            .catch(function (err) {
+                console.log("Yikes: " + err);
+            });
+
+            console.log("IM LEAVING");
+    
+
+});
+
 app.post('/get_seeds', null, {
         bucket: { type: 'string' },
-        path_pre: { type: 'string'},
+        path_pre: { type: 'string' },
         path_post: { type: 'string'},
         segments: {
             type: 'array',
