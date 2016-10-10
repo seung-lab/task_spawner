@@ -95,6 +95,9 @@ app.post('/get_segment_data', null, {
                     boxesView = new Uint32Array(resp_bounds.buffer);
                 }
 
+                // Note: Segment Bounding Boxes are given relative to the volume, in voxel. But we want them in physical coordinates in world space.
+                let resolution = meta.voxel_resolution;
+                let offset = meta.physical_offset_min;
 
                 let result = {};
                 for (let i = 0; i < segments.length; ++i) {
@@ -102,20 +105,19 @@ app.post('/get_segment_data', null, {
                     let size = sizesView[segID];
                     let bounds = {
                         "min": {
-                            "x": boxesView[6 * segID + 0],
-                            "y": boxesView[6 * segID + 1],
-                            "z": boxesView[6 * segID + 2]
+                            "x": offset[0] + resolution[0] * boxesView[6 * segID + 0],
+                            "y": offset[1] + resolution[1] * boxesView[6 * segID + 1],
+                            "z": offset[2] + resolution[2] * boxesView[6 * segID + 2]
                         },
                         "max": {
-                            "x": boxesView[6 * segID + 3],
-                            "y": boxesView[6 * segID + 4],
-                            "z": boxesView[6 * segID + 5]
+                            "x": offset[0] + resolution[0] * boxesView[6 * segID + 3],
+                            "y": offset[1] + resolution[1] * boxesView[6 * segID + 4],
+                            "z": offset[2] + resolution[2] * boxesView[6 * segID + 5]
                         }
                     };
                     result[segID] = { "size": size, "bounds": bounds };
                 }
-                //console.log(result);
-                console.log("settingbody");
+                console.log(result);
                 that.body = JSON.stringify(result);
 
             })
@@ -123,7 +125,6 @@ app.post('/get_segment_data', null, {
                 console.log("Yikes: " + err);
             });
 
-            console.log("IM LEAVING");
     
 
 });
