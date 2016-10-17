@@ -3,8 +3,6 @@
 #include <map>
 #include <memory>
 
-#include "CurlObject.h"
-#include "LZMADecode.h"
 #include "Volume.h"
 #include "SpawnHelper.h"
 

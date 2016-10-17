@@ -2,12 +2,23 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <cstring>
 
-#include "CurlObject.h"
-#include "LZMADecode.h"
 #include "Volume.h"
 #include "SpawnHelper.h"
 
+struct CInputVolume {
+  char * metadata;
+
+  uint32_t bboxesLength;
+  char * bboxes;
+  
+  uint32_t sizesLength;
+  char * sizes;
+  
+  uint32_t segmentationLength;
+  char * segmentation;
+};
 
 class CTaskSpawner {
 private:
@@ -57,41 +68,35 @@ public:
 };
 
 
-extern "C" CTaskSpawner * TaskSpawner_Spawn(char * pre_path, char * post_path, uint32_t segmentCount, uint32_t * segments) {
+extern "C" CTaskSpawner * TaskSpawner_Spawn(CInputVolume * pre, CInputVolume * post, uint32_t * segments, uint32_t segmentCount) {
   std::set<uint32_t> selected(segments, segments + segmentCount);
 
-  std::string path = std::string(pre_path);
-  CCurlObject pre_seg_curl(path + "segmentation.lzma");
-  CCurlObject pre_meta_curl(path + "metadata.json");
-  CCurlObject pre_segbbox_curl(path + "segmentation.bbox");
-  CCurlObject pre_segsize_curl(path + "segmentation.size");
+  size_t metadataLength = strlen(pre->metadata);
+  std::vector<unsigned char> pre_meta_vec(pre->metadata, pre->metadata + metadataLength);
+  
+  metadataLength = strlen(post->metadata);
+  std::vector<unsigned char> post_meta_vec(post->metadata, post->metadata + metadataLength);
 
-  path = std::string(post_path);
-  CCurlObject post_seg_curl(path + "segmentation.lzma");
-  CCurlObject post_meta_curl(path + "metadata.json");
-  CCurlObject post_segbbox_curl(path + "segmentation.bbox");
-  CCurlObject post_segsize_curl(path + "segmentation.size");
+  std::vector<unsigned char> pre_segbbox_vec(pre->bboxes, pre->bboxes + pre->bboxesLength);
+  std::vector<unsigned char> post_segbbox_vec(post->bboxes, post->bboxes + post->bboxesLength);
+  
+  std::vector<unsigned char> pre_segsize_vec(pre->sizes, pre->sizes + pre->sizesLength);
+  std::vector<unsigned char> post_segsize_vec(post->sizes, post->sizes + post->sizesLength);
 
   // Volume
-  std::unique_ptr<CVolumeMetadata> pre_meta(new CVolumeMetadata(pre_meta_curl.getData(), pre_segbbox_curl.getData(), pre_segsize_curl.getData()));
-  std::unique_ptr<CVolumeMetadata> post_meta(new CVolumeMetadata(post_meta_curl.getData(), post_segbbox_curl.getData(), post_segsize_curl.getData()));
+  std::unique_ptr<CVolumeMetadata> pre_meta(new CVolumeMetadata(pre_meta_vec, pre_segbbox_vec, pre_segsize_vec));
+  std::unique_ptr<CVolumeMetadata> post_meta(new CVolumeMetadata(post_meta_vec, post_segbbox_vec, post_segsize_vec));
 
   // Segmentation Images
-  std::vector<unsigned char> pre_compressed = pre_seg_curl.getData();
-  std::vector<unsigned char> post_compressed = post_seg_curl.getData();
+  std::vector<unsigned char> pre_segmentation_vec(pre->segmentation, pre->segmentation + pre->segmentationLength);
+  std::vector<unsigned char> post_segmentation_vec(post->segmentation, post->segmentation + post->segmentationLength);
 
-  LZMADec pre_lzma(pre_compressed, pre_meta->GetVolumeDimensions()[0] * pre_meta->GetVolumeDimensions()[1] * pre_meta->GetVolumeDimensions()[2] * pre_meta->GetSegmentTypeSize());
-  LZMADec post_lzma(post_compressed, post_meta->GetVolumeDimensions()[0] * post_meta->GetVolumeDimensions()[1] * post_meta->GetVolumeDimensions()[2] * post_meta->GetSegmentTypeSize());
-
-  std::vector<unsigned char> pre_uncompressed = pre_lzma.getUncompressed();
-  std::vector<unsigned char> post_uncompressed = post_lzma.getUncompressed();
-
-  CVolume pre(std::move(pre_meta), pre_uncompressed);
-  CVolume post(std::move(post_meta), post_uncompressed);
+  CVolume pre_volume(std::move(pre_meta), pre_segmentation_vec);
+  CVolume post_volume(std::move(post_meta), post_segmentation_vec);
 
   // Do Important Stuff
   std::vector<std::map<uint32_t, uint32_t>> seeds;
-  get_seeds(seeds, pre, selected, post);
+  get_seeds(seeds, pre_volume, selected, post_volume);
 
   return new CTaskSpawner(seeds);
 }
