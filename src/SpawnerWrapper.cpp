@@ -11,13 +11,13 @@ struct CInputVolume {
   char * metadata;
 
   uint32_t bboxesLength;
-  char * bboxes;
+  unsigned char * bboxes;
   
   uint32_t sizesLength;
-  char * sizes;
+  unsigned char * sizes;
   
   uint32_t segmentationLength;
-  char * segmentation;
+  unsigned char * segmentation;
 };
 
 class CTaskSpawner {
@@ -43,15 +43,22 @@ public:
       seeds = new SpawnSeed[spawnSetCount]; 
       for (uint32_t i = 0; i < spawnSetCount; ++i) {
         seeds[i].segmentCount = seeds_[i].size();
-        seeds[i].segments = new Segment[seeds[i].segmentCount];
+        if (seeds[i].segmentCount) {
+          seeds[i].segments = new Segment[seeds[i].segmentCount];
 
-        uint32_t j = 0;
-        for (auto const &seedset : seeds_[i]) {
-          seeds[i].segments[j].id = seedset.first;
-          seeds[i].segments[j].size = seedset.second;
-          ++j;
+          uint32_t j = 0;
+          for (auto const &seedset : seeds_[i]) {
+            seeds[i].segments[j].id = seedset.first;
+            seeds[i].segments[j].size = seedset.second;
+            ++j;
+          }
+        } else {
+          seeds[i].segments = nullptr;
         }
       }
+    }
+    else {
+      seeds = nullptr;
     }
   }
 

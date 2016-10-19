@@ -13,7 +13,7 @@ mkdir -p build
 mkdir -p lib
 mkdir -p bin
 
-echo "Compiling RTM"
+echo "Compiling Spawner"
 $GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/Volume.cpp -o build/Volume.o
 $GCC -c $CXXINCLUDES $CXXLIBS $COMMON_FLAGS $OPTIMIZATION_FLAGS src/SpawnerWrapper.cpp -o build/SpawnerWrapper.o
 

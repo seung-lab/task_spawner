@@ -20,11 +20,8 @@ Promise.promisifyAll(NodeRedis.Multi.prototype);
 lzma.setPromiseAPI(Promise);
 
 // Typedefs
-let CharPtr = ref.refType(ref.types.char);
-let UInt8Ptr = ref.refType(ref.types.uint8);
-let UInt16Ptr = ref.refType(ref.types.uint16);
+let UCharPtr = ref.refType(ref.types.uchar);
 let UInt32Ptr = ref.refType(ref.types.uint32);
-let SizeTPtr = ref.refType(ref.types.size_t);
 
 let Segment = Struct({
     'id': ref.types.uint32,
@@ -44,11 +41,11 @@ let CTaskSpawner = Struct({
 let CInputVolume = Struct({
     'metadata': "string",
     'bboxesLength': ref.types.uint32,
-    'bboxes': CharPtr,
+    'bboxes': UCharPtr,
     'sizesLength': ref.types.uint32,
-    'sizes': CharPtr,
+    'sizes': UCharPtr,
     'segmentationLength': ref.types.uint32,
-    'segmentation': CharPtr
+    'segmentation': UCharPtr
 });
 
 let CTaskSpawnerPtr = ref.refType(CTaskSpawner);
@@ -276,22 +273,25 @@ app.post('/get_seeds', null, {
         };
 
         let taskSpawnerPtr = generateSpawnCandidates(pre, post, segments);
-
         let taskSpawner = taskSpawnerPtr.deref();
-
-        let spawnSetArray = taskSpawner.seeds.ref().readPointer(0, taskSpawner.spawnSetCount * SpawnSeed.size);
-
         var result = [];
-        for (let i = 0; i < taskSpawner.spawnSetCount; ++i) {
-            let spawnSet = ref.get(spawnSetArray, i * SpawnSeed.size, SpawnSeed);
-            let segmentArray = spawnSet.segments.ref().readPointer(0, spawnSet.segmentCount * Segment.size);
 
-            let set = {}
-            for (let j = 0; j < spawnSet.segmentCount; ++j) {
-                let segment = ref.get(segmentArray, j * Segment.size, Segment);
-                set[segment.id] = segment.size;
+        if (taskSpawner.spawnSetCount > 0) {
+            let spawnSetArray = taskSpawner.seeds.ref().readPointer(0, taskSpawner.spawnSetCount * SpawnSeed.size);
+            
+            for (let i = 0; i < taskSpawner.spawnSetCount; ++i) {
+                let spawnSet = ref.get(spawnSetArray, i * SpawnSeed.size, SpawnSeed);
+                if (spawnSet.segmentCount > 0) {
+                    let segmentArray = spawnSet.segments.ref().readPointer(0, spawnSet.segmentCount * Segment.size);
+                    
+                    let set = {}
+                    for (let j = 0; j < spawnSet.segmentCount; ++j) {
+                        let segment = ref.get(segmentArray, j * Segment.size, Segment);
+                        set[segment.id] = segment.size;
+                    }
+                    result.push(set);
+                }
             }
-            result.push(set);
         }
 
         TaskSpawnerLib.TaskSpawner_Release(taskSpawnerPtr);

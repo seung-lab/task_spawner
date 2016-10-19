@@ -230,7 +230,8 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
 
   vmml::AABB<int64_t> overlapWorld = getOverlapRegion(preBoundsWorld, postBoundsWorld, dir, vmml::Vector<3, int64_t>(5, 5, 5));
   if (overlapWorld.isEmpty()) {
-    //TODO: Boxes do not overlap. Log and throw some error.
+    std::cout << "Boxes do not overlap.\n";
+    return;
   }
 
   vmml::AABB<int64_t> segmentBoundsWorld;
@@ -243,7 +244,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
 
   vmml::AABB<int64_t> roiWorld = intersect(overlapWorld, segmentBoundsWorld);
   if (roiWorld.isEmpty()) {
-    //TODO: No segments in non-fudge area. Log some info.
+    std::cout << "No segments in non-fudge area.\n";
     return;
   }
 
@@ -254,11 +255,11 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
   vmml::Vector<3, int64_t> dimROI = roiWorld.getDimension();
   int64_t volumeROI = dimROI.x() * dimROI.y() * dimROI.z();
 
-  if (volumeROI > 400 * 128 * 128 * 128) {
+  /*if (volumeROI > 400 * 128 * 128 * 128) {
     // Copied from old code... where does this restriction come from?
 
     // TODO: Overlap region is too large. Log and throw some error.
-  }
+  }*/
 
   std::unordered_map<uint32_t, int> mappingCounts;
   std::unordered_map<uint32_t, int> sizes;
@@ -391,9 +392,6 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
       std::cout << "\n";
     }
   }
-
-  std::cout << "Finalization: " << t.elapsed<double>() << " s\n";
-  t.reset();
 }
 
 /*****************************************************************/
