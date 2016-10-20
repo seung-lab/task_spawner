@@ -4,22 +4,71 @@
 #include <memory>
 
 #include "Volume.h"
-#include "SpawnHelper.h"
+#include "SpawnerWrapper.cpp"
 
 #include <zi/timer.hpp>
 
 /*****************************************************************/
 
-const char PRE_PATH[] = "https://storage.googleapis.com/pinky_3x3x2_2/pinky/3x3x2_2/hypersquare/chunk_17107-18130_23251-24274_4003-4130/";
-const char POST_PATH[] = "https://storage.googleapis.com/pinky_3x3x2_2/pinky/3x3x2_2/hypersquare/chunk_17107-18130_23251-24274_4115-4242/";
+#define PRE_SEGMENTS { 81, 89,183,248,250,258,284,739,794,843,891,946,1047,1272,1340,1402,1443,1645,1703 }
 
-const int16_t PRE_SEGMENTS[] = { 318,324,348,396,406,448,452,453,520,534,623,625,698,715,786,787,788,789,793,885,887,971,977,978,980,982,1724,2303,2304,2365,2535,2542,2624,2728,2834,2925,2989,3001,3021,3071,3072,3074,3109,3160,3171,3256,3278,3421,3434,3511,3536,3685,3714,3715,3718,3760,3767,3769,3770,3807,3843,3878,3890,3891,3964,4045,4090,4199,4284,4357,4358,4446,4541,4603,4716,4772,4773,4968,5033,5213,5216,5217,5270,5313,5361,5417,5534,5645,5653,5766,6050,6938,7272,8269,8373,8461,8462,8663,8664,8667,8876,9084,9093,9266,9267,9395,9403,9495,9497,9537,9539,9545,9749,9751,9761,9791,9859,9885,9899,9900,9905,9972,10016,10018,10094,10099,10100,10246,10253,10295,10296,10384,10388,10389,10467,10473,10503,10531,10581 };
+void loadFile(const char * filename, char ** buf, uint32_t * buf_len, bool null_terminate = false) {
+  std::ifstream f(filename, std::ifstream::binary);
+  f.seekg(0, std::ifstream::end);
+  *buf_len = (uint32_t)f.tellg();
+  f.seekg(0);
 
+  if (null_terminate) {
+    *buf = new char[(*buf_len) + 1];
+    (*buf)[*buf_len] = '\0';
+  }
+  else {
+    *buf = new char[*buf_len];
+  }
+
+  f.read(*buf, (std::streamsize)(*buf_len));
+
+  if (null_terminate) {
+    (*buf_len)++;
+  }
+}
 
 int main(int argc, char* argv[]) {
-  std::set<uint32_t> selected(std::begin(PRE_SEGMENTS), std::end(PRE_SEGMENTS));
-  std::string pre = std::string(PRE_PATH);
-  std::string post = std::string(POST_PATH);
+  std::vector<uint32_t> seg = PRE_SEGMENTS;
 
-  // TODO
+  CInputVolume pre, post;
+  char * pre_metadata, * pre_sizes, * pre_bounds, * pre_segmentation, * post_metadata, * post_sizes, * post_bounds, * post_segmentation;
+  uint32_t tmp, pre_sizes_len, pre_bounds_len, pre_segmentation_len, post_sizes_len, post_bounds_len, post_segmentation_len;
+
+  loadFile("/tmp/Volume-75853-75854%2Fmetadata.json", &pre_metadata, &tmp, true);
+  loadFile("/tmp/Volume-75853-75854%2Fsegmentation.bbox", &pre_bounds, &pre_bounds_len);
+  loadFile("/tmp/Volume-75853-75854%2Fsegmentation.size", &pre_sizes, &pre_sizes_len);
+  loadFile("/tmp/Volume-75853-75854%2Fsegmentation", &pre_segmentation, &pre_segmentation_len);
+
+
+  loadFile("/tmp/Volume-75571-75572%2Fmetadata.json", &post_metadata, &tmp, true);
+  loadFile("/tmp/Volume-75571-75572%2Fsegmentation.bbox", &post_bounds, &post_bounds_len);
+  loadFile("/tmp/Volume-75571-75572%2Fsegmentation.size", &post_sizes, &post_sizes_len);
+  loadFile("/tmp/Volume-75571-75572%2Fsegmentation", &post_segmentation, &post_segmentation_len);
+
+  pre.metadata = pre_metadata;
+  pre.bboxesLength = pre_bounds_len;
+  pre.bboxes = (uint8_t *)pre_bounds;
+  pre.sizesLength = pre_sizes_len;
+  pre.sizes = (uint8_t *)pre_sizes;
+  pre.segmentationLength = pre_segmentation_len;
+  pre.segmentation = (uint8_t *)pre_segmentation;
+
+  post.metadata = post_metadata;
+  post.bboxesLength = post_bounds_len;
+  post.bboxes = (uint8_t *)post_bounds;
+  post.sizesLength = post_sizes_len;
+  post.sizes = (uint8_t *)post_sizes;
+  post.segmentationLength = post_segmentation_len;
+  post.segmentation = (uint8_t *)post_segmentation;
+
+  CTaskSpawner * spawn = TaskSpawner_Spawn(&pre, &post, &seg[0], seg.size());
+
+  TaskSpawner_Release(spawn);
+
 }

@@ -61,6 +61,61 @@ let TaskSpawnerLib = ffi.Library('../lib/libspawner', {
 
 
 
+function validateMetadata(metadataString) { // Todo: more checks, better error handling
+    try {
+        var metadata = JSON.parse(metadataString);
+        let errors = "";
+        let warnings = "";
+        if (!metadata["segment_id_type"]) {
+            errors += "Error: segment_id_type not specified\n";
+        }
+        if (!metadata["affinity_type"]) {
+            warnings += "Warning: affinity_type not specified\n";
+        }
+        if (!metadata["bounding_box_type"]) {
+            errors += "Error: bounding_box_type not specified\n";
+        }
+        if (!metadata["size_type"]) {
+            errors += "Error: size_type not specified\n";
+        }
+        if (!metadata["image_type"]) {
+            errors += "Error: image_type not specified\n";
+        }
+        if (!metadata["num_segments"]) {
+            errors += "Error: num_segments not specified\n";
+        }
+        if (!metadata["num_edges"]) {
+            warnings += "Warning: num_edges not specified\n";
+        }
+        if (!metadata["chunk_voxel_dimensions"]) {
+            errors += "Error: chunk_voxel_dimensions not specified\n";
+        }
+        if (!metadata["voxel_resolution"]) {
+            errors += "Error: voxel_resolution not specified\n";
+        }
+        if (!metadata["resolution_units"]) {
+            warnings += "Warning: resolution_units not specified\n";
+        }
+        if (!metadata["physical_offset_min"]) {
+            errors += "Error: physical_offset_min not specified\n";
+        }
+        if (!metadata["physical_offset_max"]) {
+            errors += "Error: physical_offset_max not specified\n";
+        }
+
+        console.log(warnings);
+        if (errors != "") {
+            console.log(errors);
+            return false;
+        }
+        return true;
+    }
+    catch (err) {
+        console.log(err.message);
+        return false;
+    }
+}
+
 function generateSpawnCandidates(pre, post, segments) {
     let segmentsTA = new Uint32Array(segments);
     let segmentsBuffer = Buffer.from(segmentsTA.buffer);
@@ -258,6 +313,13 @@ app.post('/get_seeds', null, {
         console.log("Request: " + request.url);
         return cachedFetch(request);
     }).then(function(responses) {
+        if (!validateMetadata(responses[0].toString()) ||
+          !validateMetadata(responses[4].toString())) {
+          _this.status = 400;
+          _this.body = "Metadata validation failed."
+          return;
+        }
+
         let pre = {
             metadata: responses[0].toString(),
             bounds: responses[1],
@@ -298,6 +360,11 @@ app.post('/get_seeds', null, {
 
         _this.body = JSON.stringify(result);
 
+    })
+    .catch (function (err) {
+        console.log("get_seeds failed: "  + err);
+        _this.status = 400;
+        _this.body = err.message;
     });
 
 });
