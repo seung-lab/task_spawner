@@ -11,6 +11,7 @@
 #include <vmmlib/vmmlib.hpp>
 
 #include <unordered_map>
+#include <algorithm>
 #include <map>
 #include <set>
 #include <cassert>
@@ -185,27 +186,37 @@ inline bool inCriticalRegion(const vmml::Vector<3, int64_t> &pos, const vmml::AA
 
 /*****************************************************************/
 
+
+// nkem, 10/19/2016: Previously (see date) this function selected all post-side segments with more than _half_ their volume matching the pre-side selected volume in the overlapping region.
+//                   If no segment fit that description, the single largest segment was chosen (largest being most voxels in the overlapping region)
+//                   Now we are only selecting exact matches, and as fallback choose the segment with the least amount of false positives.
 std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const std::unordered_map<uint32_t, int> & mappingCounts, const std::unordered_map<uint32_t, int> & sizes) {
-  const double FALSE_OBJ_RATIO_THR = 0.5;
+
   std::map<uint32_t, uint32_t> ret;
-  uint32_t largest = 0;
-  uint32_t largestSize = 0;
+  uint32_t bestCandidate = 0;
+  uint32_t bestCandidateFP = UINT32_MAX;
+  uint32_t bestCandidateSize = 0;
 
   for (auto& seg : bundle) {
     if (seg == 0) {
       continue;
     }
-    if (((const double)mappingCounts.at(seg)) / ((const double)sizes.at(seg)) >= FALSE_OBJ_RATIO_THR) {
+
+    uint32_t fp =  std::max(0, sizes.at(seg) - mappingCounts.at(seg));
+    if (fp <= 0) {
       ret[seg] = sizes.at(seg);
     }
-    if (sizes.at(seg) > largestSize) {
-      largest = seg;
-      largestSize = sizes.at(seg);
+
+    if (fp < bestCandidateFP) {
+      bestCandidate = seg;
+      bestCandidateFP = fp;
+      bestCandidateSize = sizes.at(seg);
     }
   }
 
   if (ret.size() == 0) {
-    ret[largest] = largestSize;
+    std::cout << "No perfect seed found. Chose " << bestCandidate << " with false positive of " << bestCandidateFP << "\n";
+    ret[bestCandidate] = bestCandidateSize;
   }
 
   return ret;
