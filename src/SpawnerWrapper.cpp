@@ -75,7 +75,7 @@ public:
 };
 
 
-extern "C" CTaskSpawner * TaskSpawner_Spawn(CInputVolume * pre, CInputVolume * post, uint32_t * segments, uint32_t segmentCount) {
+extern "C" CTaskSpawner * TaskSpawner_Spawn(CInputVolume * pre, CInputVolume * post, uint32_t * segments, uint32_t segmentCount, double matchRatio) {
   std::set<uint32_t> selected(segments, segments + segmentCount);
 
   size_t metadataLength = strlen(pre->metadata);
@@ -103,7 +103,7 @@ extern "C" CTaskSpawner * TaskSpawner_Spawn(CInputVolume * pre, CInputVolume * p
 
   // Do Important Stuff
   std::vector<std::map<uint32_t, uint32_t>> seeds;
-  get_seeds(seeds, pre_volume, selected, post_volume);
+  get_seeds(seeds, pre_volume, selected, post_volume, matchRatio);
 
   return new CTaskSpawner(seeds);
 }

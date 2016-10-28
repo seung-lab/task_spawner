@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
   post.segmentationLength = post_segmentation_len;
   post.segmentation = (uint8_t *)post_segmentation;
 
-  CTaskSpawner * spawn = TaskSpawner_Spawn(&pre, &post, &seg[0], seg.size());
+  CTaskSpawner * spawn = TaskSpawner_Spawn(&pre, &post, &seg[0], seg.size(), 1.0);
 
   TaskSpawner_Release(spawn);
 

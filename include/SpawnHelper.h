@@ -189,12 +189,13 @@ inline bool inCriticalRegion(const vmml::Vector<3, int64_t> &pos, const vmml::AA
 
 // nkem, 10/19/2016: Previously (see date) this function selected all post-side segments with more than _half_ their volume matching the pre-side selected volume in the overlapping region.
 //                   If no segment fit that description, the single largest segment was chosen (largest being most voxels in the overlapping region)
-//                   Now we are only selecting exact matches, and as fallback choose the segment with the least amount of false positives.
-std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const std::unordered_map<uint32_t, int> & mappingCounts, const std::unordered_map<uint32_t, int> & sizes) {
+//                   The first part can now be controlled using matchRatio (0.5 for old behavior, 1.0 for exact matches),
+//                   and as fallback we choose a single segment, favorizing higher matchRatio as well as a minimum segment size. No exact science...
+std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const std::unordered_map<uint32_t, int> & mappingCounts, const std::unordered_map<uint32_t, int> & sizes, double matchRatio) {
 
   std::map<uint32_t, uint32_t> ret;
   uint32_t bestCandidate = 0;
-  uint32_t bestCandidateFP = UINT32_MAX;
+  double bestCandidateMatch = 0.0;
   uint32_t bestCandidateSize = 0;
 
   for (auto& seg : bundle) {
@@ -202,20 +203,22 @@ std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const st
       continue;
     }
 
-    uint32_t fp =  std::max(0, sizes.at(seg) - mappingCounts.at(seg));
-    if (fp <= 0) {
+    double match = (const double)mappingCounts.at(seg) / (const double)sizes.at(seg);
+    if (match >= matchRatio) {
       ret[seg] = sizes.at(seg);
     }
 
-    if (fp < bestCandidateFP) {
+    double weighted_match = ((const double)mappingCounts.at(seg) + 1000.0) / ((const double)sizes.at(seg) + 2000.0);
+    if (weighted_match >= bestCandidateMatch) {
       bestCandidate = seg;
-      bestCandidateFP = fp;
+      bestCandidateMatch = weighted_match;
       bestCandidateSize = sizes.at(seg);
     }
+
   }
 
   if (ret.size() == 0) {
-    std::cout << "No perfect seed found. Chose " << bestCandidate << " with false positive of " << bestCandidateFP << "\n";
+    std::cout << "No perfect seed found. Chose seg " << bestCandidate << "\n";
     ret[bestCandidate] = bestCandidateSize;
   }
 
@@ -224,7 +227,7 @@ std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const st
 
 /*****************************************************************/
 
-void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &pre, const std::set<uint32_t> &selected, const CVolume &post) {
+void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &pre, const std::set<uint32_t> &selected, const CVolume &post, double matchRatio) {
   //TODO: log "Getting Seeds\n" << pre.Endpoint() << '\n' << post.Endpoint();
   seeds.clear();
   zi::wall_timer t;
@@ -382,7 +385,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
 
   for (auto& seed : newSeedSets) {
     if (escapes[seed.first]) {
-      seeds.push_back(makeSeed(seed.second, mappingCounts, sizes));
+      seeds.push_back(makeSeed(seed.second, mappingCounts, sizes, matchRatio));
       std::cout << "\nSpawned: \n";
       std::cout << "  Pre Side: ";
       for (auto& seg : preSideSets[seed.first]) {
