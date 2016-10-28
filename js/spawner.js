@@ -52,8 +52,8 @@ let CTaskSpawnerPtr = ref.refType(CTaskSpawner);
 let CInputVolumePtr = ref.refType(CInputVolume);
 
 let TaskSpawnerLib = ffi.Library('../lib/libspawner', {
-    // CTaskSpawner * TaskSpawner_Spawn(CInputVolume * pre, CInputVolume * post, uint32_t * segments, uint32_t segmentCount);
-    "TaskSpawner_Spawn": [ CTaskSpawnerPtr, [ CInputVolumePtr, CInputVolumePtr, UInt32Ptr, "uint32" ] ],
+    // CTaskSpawner * TaskSpawner_Spawn(CInputVolume * pre, CInputVolume * post, uint32_t * segments, uint32_t segmentCount, double matchRatio);
+    "TaskSpawner_Spawn": [ CTaskSpawnerPtr, [ CInputVolumePtr, CInputVolumePtr, UInt32Ptr, "uint32", "double" ] ],
 
     // void      TaskSpawner_Release(CTaskSpawner * taskspawner);
     "TaskSpawner_Release": [ "void", [ CTaskSpawnerPtr ] ],
@@ -116,7 +116,7 @@ function validateMetadata(metadataString) { // Todo: more checks, better error h
     }
 }
 
-function generateSpawnCandidates(pre, post, segments) {
+function generateSpawnCandidates(pre, post, segments, matchRatio) {
     let segmentsTA = new Uint32Array(segments);
     let segmentsBuffer = Buffer.from(segmentsTA.buffer);
     segmentsBuffer.type = ref.types.uint32;
@@ -143,7 +143,7 @@ function generateSpawnCandidates(pre, post, segments) {
           segmentation:        post.segmentation
         });
 
-    let spawnSets = TaskSpawnerLib.TaskSpawner_Spawn(pre_vol.ref(), post_vol.ref(), segmentsBuffer, segmentsTA.length);
+    let spawnSets = TaskSpawnerLib.TaskSpawner_Spawn(pre_vol.ref(), post_vol.ref(), segmentsBuffer, segmentsTA.length, matchRatio);
 
     return spawnSets;
 }
@@ -290,9 +290,17 @@ app.post('/get_seeds', null, {
         type: 'array',
         itemType: 'int',
         rule: { min: 0 }
+    },
+    match_ratio: {
+        required: false,
+        type: 'number',
+        min: 0.5,
+        max: 1.0
     }
 }, function* () {
-    let { bucket, path_pre, path_post, segments } = this.params;
+    let { bucket, path_pre, path_post, segments, match_ratio } = this.params;
+    match_ratio = match_ratio || 0.6;
+
     let pre_segmentation_path = `https://storage.googleapis.com/${bucket}/${path_pre}`;
     let post_segmentation_path = `https://storage.googleapis.com/${bucket}/${path_post}`;
     let _this = this;
@@ -334,7 +342,7 @@ app.post('/get_seeds', null, {
             segmentation: responses[7]
         };
 
-        let taskSpawnerPtr = generateSpawnCandidates(pre, post, segments);
+        let taskSpawnerPtr = generateSpawnCandidates(pre, post, segments, match_ratio);
         let taskSpawner = taskSpawnerPtr.deref();
         var result = [];
 
