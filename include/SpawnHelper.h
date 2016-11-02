@@ -248,7 +248,6 @@ std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const st
 /*****************************************************************/
 
 void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &pre, const std::set<uint32_t> &selected, const CVolume &post, double matchRatio) {
-  //TODO: log "Getting Seeds\n" << pre.Endpoint() << '\n' << post.Endpoint();
   seeds.clear();
   zi::wall_timer t;
   t.reset();
@@ -264,8 +263,8 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
 
   int64_t overlap = getOverlap(preBoundsWorld, postBoundsWorld, dir);
 
-  vmml::AABB<int64_t> overlapWorld = getOverlapRegion(preBoundsWorld, postBoundsWorld, dir, overlap/2);
-  if (overlapWorld.isEmpty()) {
+  vmml::AABB<int64_t> postHalfOverlapWorld = getOverlapRegion(preBoundsWorld, postBoundsWorld, dir, overlap/2);
+  if (postHalfOverlapWorld.isEmpty()) {
     std::cout << "Boxes do not overlap.\n";
     return;
   }
@@ -278,12 +277,16 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
     }
   }
 
-  vmml::AABB<int64_t> roiWorld = intersect(overlapWorld, segmentBoundsWorld);
-  if (roiWorld.isEmpty()) {
-    std::cout << "No segments in non-fudge area.\n";
+  vmml::AABB<int64_t> postHalfROIWorld = intersect(postHalfOverlapWorld, segmentBoundsWorld);
+  if (postHalfROIWorld.isEmpty()) {
+    std::cout << "No segments in post half of overlap.\n";
     return;
   }
 
+  
+
+  vmml::AABB<int64_t> overlapWorld = intersect(preBoundsWorld, postBoundsWorld);
+  vmml::AABB<int64_t> roiWorld = intersect(overlapWorld, segmentBoundsWorld);
 
   vmml::AABB<int64_t> preVolumeROI = vmml::subtractVector(roiWorld, preBoundsWorld.getMin());
   vmml::AABB<int64_t> postVolumeROI = vmml::subtractVector(roiWorld, postBoundsWorld.getMin());
