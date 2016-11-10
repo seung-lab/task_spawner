@@ -135,8 +135,14 @@ int64_t CVolume::GetSegmentCount() const {
 
 /*****************************************************************/
 
+int64_t CVolume::GetSegmentMaxId() const {
+    return meta_->GetSegmentMaxId();
+}
+
+/*****************************************************************/
+
 const vmml::AABB<int64_t> & CVolume::GetSegmentBoundsVolume(int64_t segID) const {
-    if (segID < GetSegmentCount())
+    if (segID <= GetSegmentMaxId())
         return meta_->segments->boundsVolume[segID];
     else
         return empty_bbox;
@@ -145,7 +151,7 @@ const vmml::AABB<int64_t> & CVolume::GetSegmentBoundsVolume(int64_t segID) const
 /*****************************************************************/
 
 const vmml::AABB<int64_t> & CVolume::GetSegmentBoundsWorld(int64_t segID) const {
-    if (segID < GetSegmentCount())
+    if (segID <= GetSegmentMaxId())
         return meta_->segments->boundsWorld[segID];
     else
         return empty_bbox;
@@ -154,7 +160,7 @@ const vmml::AABB<int64_t> & CVolume::GetSegmentBoundsWorld(int64_t segID) const 
 /*****************************************************************/
 
 int64_t CVolume::GetSegmentSizeVoxel(int64_t segID) const {
-    if (segID < GetSegmentCount())
+    if (segID <= GetSegmentMaxId())
         return meta_->segments->sizes[segID];
     else
         return 0;
@@ -169,10 +175,7 @@ const CSegmentation * CVolume::GetSegmentation() const {
 /*****************************************************************/
 
 CVolumeMetadata::CSegments::CSegments(const CVolumeMetadata &meta, const std::vector<unsigned char> &raw_bboxes, const std::vector<unsigned char> &raw_sizes) {
-  assert(raw_bboxes.size() % (6 * meta.segment_count) == 0);
-  assert(raw_sizes.size() % meta.segment_count == 0);
-
-  count = meta.segment_count;
+  count = meta.segment_max_id + 1;
 
   sizes.reserve(count);
   boundsVolume.reserve(count);
@@ -251,10 +254,12 @@ CVolumeMetadata::CVolumeMetadata(const std::vector<unsigned char> &raw_json, con
 
   resolution_units = metadata["resolution_units"];
 
+  uint8_t size_type_size;
   segment_id_type = StringToMetaDataType(metadata["segment_id_type"], &segment_id_type_size);
   segment_bbox_type = StringToMetaDataType(metadata["bounding_box_type"]);
-  segment_size_type = StringToMetaDataType(metadata["size_type"]);
+  segment_size_type = StringToMetaDataType(metadata["size_type"], &size_type_size);
   segment_count = metadata["num_segments"];
+  segment_max_id = raw_sizes.size() / size_type_size - 1;
 
   segments = new CSegments(*this, raw_bboxes, raw_sizes);
 }
@@ -298,6 +303,12 @@ uint8_t CVolumeMetadata::GetSegmentTypeSize() const {
 
 int64_t CVolumeMetadata::GetSegmentCount() const {
     return segment_count;
+}
+
+/*****************************************************************/
+
+int64_t CVolumeMetadata::GetSegmentMaxId() const {
+    return segment_max_id;
 }
 
 /*****************************************************************/

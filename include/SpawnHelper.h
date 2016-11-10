@@ -162,7 +162,7 @@ int64_t getOverlap(const vmml::AABB<int64_t> &pre, const vmml::AABB<int64_t> &po
 
 /*****************************************************************/
 
-vmml::AABB<int64_t> getOverlapRegion(const vmml::AABB<int64_t> &pre, const vmml::AABB<int64_t> &post, const Direction d, int64_t margin) {
+vmml::AABB<int64_t> getOverlapRegion(const vmml::AABB<int64_t> &pre, const vmml::AABB<int64_t> &post, const Direction d, int64_t margin_pre, int64_t margin_post) {
   vmml::AABB<int64_t> bounds = intersect(pre, post);
 
   // Trim on preside
@@ -171,22 +171,28 @@ vmml::AABB<int64_t> getOverlapRegion(const vmml::AABB<int64_t> &pre, const vmml:
 
   switch (d) {
     case Direction::XMin:
-      bounds.setMax(vmml::Vector<3, int64_t>(max.x() - margin, max.y(), max.z()));
+      bounds.setMax(vmml::Vector<3, int64_t>(max.x() - margin_pre, max.y(), max.z()));
+      bounds.setMin(vmml::Vector<3, int64_t>(min.x() + margin_post, min.y(), min.z()));
       break;
     case Direction::YMin:
-      bounds.setMax(vmml::Vector<3, int64_t>(max.x(), max.y() - margin, max.z()));
+      bounds.setMax(vmml::Vector<3, int64_t>(max.x(), max.y() - margin_pre, max.z()));
+      bounds.setMin(vmml::Vector<3, int64_t>(min.x(), min.y() + margin_post, min.z()));
       break;
     case Direction::ZMin:
-      bounds.setMax(vmml::Vector<3, int64_t>(max.x(), max.y(), max.z() - margin));
+      bounds.setMax(vmml::Vector<3, int64_t>(max.x(), max.y(), max.z() - margin_pre));
+      bounds.setMin(vmml::Vector<3, int64_t>(min.x(), min.y(), min.z() + margin_post));
       break;
     case Direction::XMax:
-      bounds.setMin(vmml::Vector<3, int64_t>(min.x() + margin, min.y(), min.z()));
+      bounds.setMin(vmml::Vector<3, int64_t>(min.x() + margin_pre, min.y(), min.z()));
+      bounds.setMax(vmml::Vector<3, int64_t>(max.x() - margin_post, max.y(), max.z()));
       break;
     case Direction::YMax:
-      bounds.setMin(vmml::Vector<3, int64_t>(min.x(), min.y() + margin, min.z()));
+      bounds.setMin(vmml::Vector<3, int64_t>(min.x(), min.y() + margin_pre, min.z()));
+      bounds.setMax(vmml::Vector<3, int64_t>(max.x(), max.y() - margin_post, max.z()));
       break;
     case Direction::ZMax:
-      bounds.setMin(vmml::Vector<3, int64_t>(min.x(), min.y(), min.z() + margin));
+      bounds.setMin(vmml::Vector<3, int64_t>(min.x(), min.y(), min.z() + margin_pre));
+      bounds.setMax(vmml::Vector<3, int64_t>(max.x(), max.y(), max.z() - margin_post));
       break;
   }
 
@@ -263,7 +269,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
 
   int64_t overlap = getOverlap(preBoundsWorld, postBoundsWorld, dir);
 
-  vmml::AABB<int64_t> postHalfOverlapWorld = getOverlapRegion(preBoundsWorld, postBoundsWorld, dir, overlap/2);
+  vmml::AABB<int64_t> postHalfOverlapWorld = getOverlapRegion(preBoundsWorld, postBoundsWorld, dir, overlap/2, 0);
   if (postHalfOverlapWorld.isEmpty()) {
     std::cout << "Boxes do not overlap.\n";
     return;
@@ -272,7 +278,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
   vmml::AABB<int64_t> segmentBoundsWorld;
 
   for (auto& segID : selected) {
-    if (segID < pre.GetSegmentCount() && segID > 0) {
+    if (segID <= pre.GetSegmentMaxId() && segID > 0 && pre.GetSegmentSizeVoxel(segID) > 0) {
       segmentBoundsWorld.merge(vmml::divideVector(pre.GetSegmentBoundsWorld(segID), res));
     }
   }
@@ -285,7 +291,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
 
   
 
-  vmml::AABB<int64_t> overlapWorld = intersect(preBoundsWorld, postBoundsWorld);
+  vmml::AABB<int64_t> overlapWorld = getOverlapRegion(preBoundsWorld, postBoundsWorld, dir, 1, 1);
   vmml::AABB<int64_t> roiWorld = intersect(overlapWorld, segmentBoundsWorld);
 
   vmml::AABB<int64_t> preVolumeROI = vmml::subtractVector(roiWorld, preBoundsWorld.getMin());
