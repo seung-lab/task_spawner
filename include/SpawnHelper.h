@@ -244,7 +244,7 @@ std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const st
   }
 
   if (ret.size() == 0) {
-    std::cout << "No perfect seed found. Chose seg " << bestCandidate << "\n";
+    std::cout << "No perfect seed found. Chose seg " << bestCandidate << " with " << mappingCounts.at(bestCandidate) << " / " << bestCandidateSize << " voxels matching.\n";
     ret[bestCandidate] = bestCandidateSize;
   }
 
@@ -282,6 +282,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
       segmentBoundsWorld.merge(vmml::divideVector(pre.GetSegmentBoundsWorld(segID), res));
     }
   }
+  segmentBoundsWorld = vmml::dilate(segmentBoundsWorld, vmml::Vector<3, int64_t>(1, 1, 1)); // had some issues with bounding boxes being one voxel off...
 
   vmml::AABB<int64_t> postHalfROIWorld = intersect(postHalfOverlapWorld, segmentBoundsWorld);
   if (postHalfROIWorld.isEmpty()) {
