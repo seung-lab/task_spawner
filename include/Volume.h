@@ -50,6 +50,7 @@ private:
   MetaDataType               segment_size_type;
   uint8_t                    segment_id_type_size;
   int64_t                    segment_count;
+  int64_t                    segment_max_id;
   CSegments                * segments;
 
 public:
@@ -63,6 +64,7 @@ public:
   const std::string &              GetResolutionUnit() const;
   uint8_t                          GetSegmentTypeSize() const;
   int64_t                          GetSegmentCount() const;
+  int64_t                          GetSegmentMaxId() const;
 
 };
 
@@ -132,6 +134,7 @@ class CVolume {
   const vmml::AABB<int64_t> &      GetPhysicalBounds() const;
   const vmml::Vector<3, int64_t> & GetVoxelResolution() const;
   int64_t                          GetSegmentCount() const;
+  int64_t                          GetSegmentMaxId() const;
   const vmml::AABB<int64_t> &      GetSegmentBoundsWorld(int64_t segID) const;
   const vmml::AABB<int64_t> &      GetSegmentBoundsVolume(int64_t segID) const;
   int64_t                          GetSegmentSizeVoxel(int64_t segID) const;
