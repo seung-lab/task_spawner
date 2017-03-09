@@ -253,6 +253,16 @@ std::map<uint32_t, uint32_t> makeSeed(const std::set<uint32_t>& bundle, const st
 
 /*****************************************************************/
 
+bool is_valid_segment(uint32_t segID, const CVolume &segmentation) {
+  // Check if segment ID is valid, and filter dust (by voxel size and dimensions)
+  return segID <= segmentation.GetSegmentMaxId() &&
+         segID > 0 &&
+         segmentation.GetSegmentSizeVoxel(segID) > 100 &&
+         segmentation.GetSegmentBoundsVolume(segID).getDimension().find_min() > 1;
+}
+
+/*****************************************************************/
+
 void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &pre, const std::set<uint32_t> &selected, const CVolume &post, double matchRatio) {
   seeds.clear();
   zi::wall_timer t;
@@ -278,7 +288,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
   vmml::AABB<int64_t> segmentBoundsWorld;
 
   for (auto& segID : selected) {
-    if (segID <= pre.GetSegmentMaxId() && segID > 0 && pre.GetSegmentSizeVoxel(segID) > 0) {
+    if (is_valid_segment(segID, pre)) {
       segmentBoundsWorld.merge(vmml::divideVector(pre.GetSegmentBoundsWorld(segID), res));
     }
   }
@@ -330,7 +340,7 @@ void get_seeds(std::vector<std::map<uint32_t, uint32_t>> &seeds, const CVolume &
       for (int64_t x = 0; x < dimROI.x(); ++x, ++preROIPos.x(), ++postROIPos.x()) {
         uint32_t segID = preSegmentation(preROIPos);
         //std::cout << segID << "\n";
-        if (segID > 0 && selected.find(segID) != selected.end()) {
+        if (is_valid_segment(segID, pre) && selected.find(segID) != selected.end()) {
           uint32_t postSegID = postSegmentation(postROIPos);
           if (postSegID > 0) {
             postSelected.insert(postSegID);
