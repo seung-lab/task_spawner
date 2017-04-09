@@ -1,0 +1,23 @@
+syntax = "proto3";
+package ew.spawner;
+
+message SpawnEntry {
+    message PreSegment {
+        uint32 id = 1;
+        uint32 intersectionSize = 2;
+    }
+
+    message PostSegment {
+        repeated PreSegment preSideSupports = 1;
+        uint32 id = 2;
+        uint32 overlapSize = 3;
+    }
+
+    repeated PostSegment postSideCounterparts = 1;
+    repeated PreSegment preSideNeighbors = 2;
+    bool canSpawn = 3;
+}
+
+message SpawnTable {
+    map<uint32, SpawnEntry> entries = 1;
+}
