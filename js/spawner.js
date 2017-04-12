@@ -10,14 +10,13 @@ let send       = require('koa-send');
 let rp         = require('request-promise');
 let lzma       = require('lzma-native');     // one time decompression of segmentation
 let lz4        = require('lz4');             // (de)compression of segmentation from/to redis
+let protobuf   = require('protobufjs');
 
 let NodeRedis  = require('redis');           // cache for volume data (metadata, segment bboxes and sizes, segmentation)
 let redis = NodeRedis.createClient('6379', '127.0.0.1', {return_buffers: true});
 
 Promise.promisifyAll(NodeRedis.RedisClient.prototype);
 Promise.promisifyAll(NodeRedis.Multi.prototype);
-
-lzma.setPromiseAPI(Promise);
 
 // Typedefs
 let UCharPtr = ref.refType(ref.types.uchar);
@@ -59,7 +58,20 @@ let TaskSpawnerLib = ffi.Library('../lib/libspawner', {
     "TaskSpawner_Release": [ "void", [ CTaskSpawnerPtr ] ],
 });
 
+let SpawnTableDef;
+protobuf.load("../res/spawnset.proto").then(function(root) {
+    SpawnTableDef = root.lookupType("ew.spawner.SpawnTable");
+}).catch(function(err) {
+    console.log("Couldn't load protobuf definitions: " + err);
+});
 
+function strMapToObj(strMap) {
+    const obj = Object.create(null);
+    for (const [key, val] of strMap) {
+        obj[key] = val;
+    }
+    return obj;
+}
 
 function validateMetadata(metadataString) { // Todo: more checks, better error handling
     try {
@@ -282,7 +294,137 @@ app.post('/get_segment_data', null, {
 
 });
 
+// get_seeds function that returns seed segments based on a precomputed spawntable. Very fast.
 app.post('/get_seeds', null, {
+    bucket: { type: 'string' },
+    path_pre: { type: 'string' },
+    path_post: { type: 'string'},
+    segments: {
+        type: 'array',
+        itemType: 'int',
+        rule: { min: 0 }
+    },
+    match_ratio: {
+        required: false,
+        type: 'number',
+        min: 0.5,
+        max: 1.0
+    }
+}, function* () {
+    let { bucket, path_pre, path_post, segments, match_ratio } = this.params;
+    match_ratio = match_ratio || 0.6;
+
+    const _this = this;
+    const pre_segmentation_path = `https://storage.googleapis.com/${bucket}/${path_pre}`;
+    const spawntable_path = pre_segmentation_path + path_post.match(/([^\/]*)\/*$/)[1] + '.pb.spawn';
+
+    console.time("get_seeds for " + spawntable_path);
+    console.time("loading " + spawntable_path);
+
+    const requests = [
+        { url: spawntable_path, encoding: null }, // "encoding: null" is request's cryptic way of saying: binary
+    ];
+
+    // Bluebird.map ensures order of responses equals order of requests
+    yield Promise.map(requests, function (request) {
+        console.log("Request: " + request.url);
+        return cachedFetch(request);
+    }).then(function(responses) {
+        console.timeEnd("loading " + spawntable_path);
+        console.time("parsing " + spawntable_path);
+        const spawnMapEnc = responses[0];
+        const spawnMap = SpawnTableDef.decode(spawnMapEnc).entries;
+        console.timeEnd("parsing " + spawntable_path);
+
+        // Filter selected segments in overlapping region, attach a default group id to each segment
+        const roiSegments = new Map(segments.filter((segID) => { return spawnMap[segID] }).map((segID) => { return [segID, -1] }));
+
+        // Connected components using BFS
+        let roiSegGroups = [];
+        for (const segID of roiSegments.keys()) {
+            if (roiSegments.get(segID) !== -1) {
+                continue;
+            }
+
+            const queue = [segID];
+            const groupID = roiSegGroups.length;
+            roiSegGroups[groupID] = new Set();
+
+            while (queue.length > 0) {
+                const seg = queue.pop();
+                roiSegments.set(seg, groupID);
+                roiSegGroups[groupID].add(seg);
+                for (const regiongraphNeighbor of spawnMap[seg].preSideNeighbors) {
+                    if (roiSegments.get(regiongraphNeighbor.id) === -1) {
+                        queue.push(regiongraphNeighbor.id);
+                    }
+                }
+            }
+        }
+
+        // Remove connected groups not allowed to spawn (only contains dust, very flat boundary segments, ...)
+        roiSegGroups = roiSegGroups.filter((group) => { return [...group].some((segID) => { return spawnMap[segID].canSpawn === true }) });
+
+        // Retrieve post side equivalents for each group:
+        const result = [];
+        for (const group of roiSegGroups) {
+            const groupID = result.length;
+            let bestMatch = null;
+            for (const preKey of group) {
+                for (const postSeg of spawnMap[preKey].postSideCounterparts) {
+                    // Shortcut if post-side segment was already spawned by another pre-side segment
+                    if (result[groupID] && result[groupID].has(postSeg.id)) {
+                        continue;
+                    }
+
+                    // Check if enough pre-side segments are selected to spawn this post-side segment
+                    const requiredSize = match_ratio * postSeg.overlapSize;
+                    let accumSize = 0;
+                    for (const preSeg of postSeg.preSideSupports) {
+                        if (roiSegments.has(preSeg.id)) {
+                            accumSize += preSeg.intersectionSize;
+                        }
+                    }
+                    if (accumSize >= requiredSize) {
+                        result[groupID] = result[groupID] || new Map();
+                        result[groupID].set(postSeg.id, postSeg.overlapSize);
+                    }
+
+                    // Store best match in case we don't find a single valid post-segment for this spawn group
+                    const matchScore = (accumSize + 1000.0) / (postSeg.overlapSize + 2000.0);
+                    if (!bestMatch || matchScore > bestMatch.score) {
+                        bestMatch = { segID: postSeg.id, score: matchScore, size: postSeg.overlapSize, mappedSize: accumSize }
+                    }
+                }
+            }
+
+            // No valid post-segment found, so use the best match we got
+            if (!result[groupID] && bestMatch) {
+                result[groupID] = new Map();
+                result[groupID].set(bestMatch.segID, bestMatch.size);
+                console.log("No perfect seed found. Chose seg " + bestMatch.segID + " with " + bestMatch.mappedSize + " / " + bestMatch.size + " voxels matching.");
+            }
+        }
+        const result_str = JSON.stringify(result.map((map) => { return strMapToObj(map) }));
+        console.log(result_str)
+        console.timeEnd("get_seeds for " + spawntable_path);
+        _this.body = result_str;
+
+    })
+    .catch (function (err) {
+        console.log("get_seeds failed: " + err);
+        console.log("Params were: " + JSON.stringify(_this.params));
+
+        _this.status = 400;
+        _this.body = err.message;
+    });
+
+});
+
+// Old spawner version that calculates new seeds on demand as fallback. Slower in general because
+// it has to download and decompress segmentation.lzma and interface with the spawner C library.
+// Also connected components becomes somewhat slow for a large amount of selected supervoxels.
+app.post('/get_seeds_old', null, {
     bucket: { type: 'string' },
     path_pre: { type: 'string' },
     path_post: { type: 'string'},
@@ -317,10 +459,12 @@ app.post('/get_seeds', null, {
     ];
 
     // Bluebird.map ensures order of responses equals order of requests
+    console.time("Retrieving files for " + path_pre + " and " + path_post);
     yield Promise.map(requests, function (request) {
         console.log("Request: " + request.url);
         return cachedFetch(request);
     }).then(function(responses) {
+        console.timeEnd("Retrieving files for " + path_pre + " and " + path_post);
         if (!validateMetadata(responses[0].toString()) ||
           !validateMetadata(responses[4].toString())) {
           _this.status = 400;
@@ -341,7 +485,7 @@ app.post('/get_seeds', null, {
             sizes: responses[6],
             segmentation: responses[7]
         };
-
+        console.time("get_seeds for " + path_pre + " to " + path_post);
         let taskSpawnerPtr = generateSpawnCandidates(pre, post, segments, match_ratio);
         let taskSpawner = taskSpawnerPtr.deref();
         var result = [];
@@ -366,6 +510,7 @@ app.post('/get_seeds', null, {
 
         TaskSpawnerLib.TaskSpawner_Release(taskSpawnerPtr);
 
+        console.timeEnd("get_seeds for " + path_pre + " to " + path_post);
         _this.body = JSON.stringify(result);
 
     })
