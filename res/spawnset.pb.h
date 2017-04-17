@@ -33,15 +33,18 @@
 // @@protoc_insertion_point(includes)
 namespace ew {
 namespace spawner {
-class SpawnEntry;
-class SpawnEntryDefaultTypeInternal;
-extern SpawnEntryDefaultTypeInternal _SpawnEntry_default_instance_;
-class SpawnEntry_PostSegment;
-class SpawnEntry_PostSegmentDefaultTypeInternal;
-extern SpawnEntry_PostSegmentDefaultTypeInternal _SpawnEntry_PostSegment_default_instance_;
-class SpawnEntry_PreSegment;
-class SpawnEntry_PreSegmentDefaultTypeInternal;
-extern SpawnEntry_PreSegmentDefaultTypeInternal _SpawnEntry_PreSegment_default_instance_;
+class PostSegment;
+class PostSegmentDefaultTypeInternal;
+extern PostSegmentDefaultTypeInternal _PostSegment_default_instance_;
+class PreSegment;
+class PreSegmentDefaultTypeInternal;
+extern PreSegmentDefaultTypeInternal _PreSegment_default_instance_;
+class RegionGraphEntry;
+class RegionGraphEntryDefaultTypeInternal;
+extern RegionGraphEntryDefaultTypeInternal _RegionGraphEntry_default_instance_;
+class SpawnMapEntry;
+class SpawnMapEntryDefaultTypeInternal;
+extern SpawnMapEntryDefaultTypeInternal _SpawnMapEntry_default_instance_;
 class SpawnTable;
 class SpawnTableDefaultTypeInternal;
 extern SpawnTableDefaultTypeInternal _SpawnTable_default_instance_;
@@ -64,37 +67,37 @@ void InitDefaults();
 
 // ===================================================================
 
-class SpawnEntry_PreSegment : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.SpawnEntry.PreSegment) */ {
+class PreSegment : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.PreSegment) */ {
  public:
-  SpawnEntry_PreSegment();
-  virtual ~SpawnEntry_PreSegment();
+  PreSegment();
+  virtual ~PreSegment();
 
-  SpawnEntry_PreSegment(const SpawnEntry_PreSegment& from);
+  PreSegment(const PreSegment& from);
 
-  inline SpawnEntry_PreSegment& operator=(const SpawnEntry_PreSegment& from) {
+  inline PreSegment& operator=(const PreSegment& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SpawnEntry_PreSegment& default_instance();
+  static const PreSegment& default_instance();
 
-  static inline const SpawnEntry_PreSegment* internal_default_instance() {
-    return reinterpret_cast<const SpawnEntry_PreSegment*>(
-               &_SpawnEntry_PreSegment_default_instance_);
+  static inline const PreSegment* internal_default_instance() {
+    return reinterpret_cast<const PreSegment*>(
+               &_PreSegment_default_instance_);
   }
 
-  void Swap(SpawnEntry_PreSegment* other);
+  void Swap(PreSegment* other);
 
   // implements Message ----------------------------------------------
 
-  inline SpawnEntry_PreSegment* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline PreSegment* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  SpawnEntry_PreSegment* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  PreSegment* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const SpawnEntry_PreSegment& from);
-  void MergeFrom(const SpawnEntry_PreSegment& from);
+  void CopyFrom(const PreSegment& from);
+  void MergeFrom(const PreSegment& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -115,7 +118,7 @@ class SpawnEntry_PreSegment : public ::google::protobuf::Message /* @@protoc_ins
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(SpawnEntry_PreSegment* other);
+  void InternalSwap(PreSegment* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -143,7 +146,7 @@ class SpawnEntry_PreSegment : public ::google::protobuf::Message /* @@protoc_ins
   ::google::protobuf::uint32 intersectionsize() const;
   void set_intersectionsize(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(class_scope:ew.spawner.PreSegment)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -154,37 +157,37 @@ class SpawnEntry_PreSegment : public ::google::protobuf::Message /* @@protoc_ins
 };
 // -------------------------------------------------------------------
 
-class SpawnEntry_PostSegment : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.SpawnEntry.PostSegment) */ {
+class PostSegment : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.PostSegment) */ {
  public:
-  SpawnEntry_PostSegment();
-  virtual ~SpawnEntry_PostSegment();
+  PostSegment();
+  virtual ~PostSegment();
 
-  SpawnEntry_PostSegment(const SpawnEntry_PostSegment& from);
+  PostSegment(const PostSegment& from);
 
-  inline SpawnEntry_PostSegment& operator=(const SpawnEntry_PostSegment& from) {
+  inline PostSegment& operator=(const PostSegment& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SpawnEntry_PostSegment& default_instance();
+  static const PostSegment& default_instance();
 
-  static inline const SpawnEntry_PostSegment* internal_default_instance() {
-    return reinterpret_cast<const SpawnEntry_PostSegment*>(
-               &_SpawnEntry_PostSegment_default_instance_);
+  static inline const PostSegment* internal_default_instance() {
+    return reinterpret_cast<const PostSegment*>(
+               &_PostSegment_default_instance_);
   }
 
-  void Swap(SpawnEntry_PostSegment* other);
+  void Swap(PostSegment* other);
 
   // implements Message ----------------------------------------------
 
-  inline SpawnEntry_PostSegment* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline PostSegment* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  SpawnEntry_PostSegment* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  PostSegment* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const SpawnEntry_PostSegment& from);
-  void MergeFrom(const SpawnEntry_PostSegment& from);
+  void CopyFrom(const PostSegment& from);
+  void MergeFrom(const PostSegment& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -205,7 +208,7 @@ class SpawnEntry_PostSegment : public ::google::protobuf::Message /* @@protoc_in
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(SpawnEntry_PostSegment* other);
+  void InternalSwap(PostSegment* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -221,16 +224,16 @@ class SpawnEntry_PostSegment : public ::google::protobuf::Message /* @@protoc_in
 
   // accessors -------------------------------------------------------
 
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
+  // repeated .ew.spawner.PreSegment preSideSupports = 1;
   int presidesupports_size() const;
   void clear_presidesupports();
   static const int kPreSideSupportsFieldNumber = 1;
-  const ::ew::spawner::SpawnEntry_PreSegment& presidesupports(int index) const;
-  ::ew::spawner::SpawnEntry_PreSegment* mutable_presidesupports(int index);
-  ::ew::spawner::SpawnEntry_PreSegment* add_presidesupports();
-  ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >*
+  const ::ew::spawner::PreSegment& presidesupports(int index) const;
+  ::ew::spawner::PreSegment* mutable_presidesupports(int index);
+  ::ew::spawner::PreSegment* add_presidesupports();
+  ::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment >*
       mutable_presidesupports();
-  const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >&
+  const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment >&
       presidesupports() const;
 
   // uint32 id = 2;
@@ -245,49 +248,56 @@ class SpawnEntry_PostSegment : public ::google::protobuf::Message /* @@protoc_in
   ::google::protobuf::uint32 overlapsize() const;
   void set_overlapsize(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:ew.spawner.SpawnEntry.PostSegment)
+  // bool canSpawn = 4;
+  void clear_canspawn();
+  static const int kCanSpawnFieldNumber = 4;
+  bool canspawn() const;
+  void set_canspawn(bool value);
+
+  // @@protoc_insertion_point(class_scope:ew.spawner.PostSegment)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment > presidesupports_;
+  ::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment > presidesupports_;
   ::google::protobuf::uint32 id_;
   ::google::protobuf::uint32 overlapsize_;
+  bool canspawn_;
   mutable int _cached_size_;
   friend struct protobuf_spawnset_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
 
-class SpawnEntry : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.SpawnEntry) */ {
+class SpawnMapEntry : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.SpawnMapEntry) */ {
  public:
-  SpawnEntry();
-  virtual ~SpawnEntry();
+  SpawnMapEntry();
+  virtual ~SpawnMapEntry();
 
-  SpawnEntry(const SpawnEntry& from);
+  SpawnMapEntry(const SpawnMapEntry& from);
 
-  inline SpawnEntry& operator=(const SpawnEntry& from) {
+  inline SpawnMapEntry& operator=(const SpawnMapEntry& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SpawnEntry& default_instance();
+  static const SpawnMapEntry& default_instance();
 
-  static inline const SpawnEntry* internal_default_instance() {
-    return reinterpret_cast<const SpawnEntry*>(
-               &_SpawnEntry_default_instance_);
+  static inline const SpawnMapEntry* internal_default_instance() {
+    return reinterpret_cast<const SpawnMapEntry*>(
+               &_SpawnMapEntry_default_instance_);
   }
 
-  void Swap(SpawnEntry* other);
+  void Swap(SpawnMapEntry* other);
 
   // implements Message ----------------------------------------------
 
-  inline SpawnEntry* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline SpawnMapEntry* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  SpawnEntry* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  SpawnMapEntry* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const SpawnEntry& from);
-  void MergeFrom(const SpawnEntry& from);
+  void CopyFrom(const SpawnMapEntry& from);
+  void MergeFrom(const SpawnMapEntry& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -308,7 +318,7 @@ class SpawnEntry : public ::google::protobuf::Message /* @@protoc_insertion_poin
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(SpawnEntry* other);
+  void InternalSwap(SpawnMapEntry* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -322,51 +332,120 @@ class SpawnEntry : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // nested types ----------------------------------------------------
 
-  typedef SpawnEntry_PreSegment PreSegment;
-  typedef SpawnEntry_PostSegment PostSegment;
-
   // accessors -------------------------------------------------------
 
-  // repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
+  // repeated .ew.spawner.PostSegment postSideCounterparts = 1;
   int postsidecounterparts_size() const;
   void clear_postsidecounterparts();
   static const int kPostSideCounterpartsFieldNumber = 1;
-  const ::ew::spawner::SpawnEntry_PostSegment& postsidecounterparts(int index) const;
-  ::ew::spawner::SpawnEntry_PostSegment* mutable_postsidecounterparts(int index);
-  ::ew::spawner::SpawnEntry_PostSegment* add_postsidecounterparts();
-  ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment >*
+  const ::ew::spawner::PostSegment& postsidecounterparts(int index) const;
+  ::ew::spawner::PostSegment* mutable_postsidecounterparts(int index);
+  ::ew::spawner::PostSegment* add_postsidecounterparts();
+  ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >*
       mutable_postsidecounterparts();
-  const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment >&
+  const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >&
       postsidecounterparts() const;
 
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
-  int presideneighbors_size() const;
-  void clear_presideneighbors();
-  static const int kPreSideNeighborsFieldNumber = 2;
-  const ::ew::spawner::SpawnEntry_PreSegment& presideneighbors(int index) const;
-  ::ew::spawner::SpawnEntry_PreSegment* mutable_presideneighbors(int index);
-  ::ew::spawner::SpawnEntry_PreSegment* add_presideneighbors();
-  ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >*
-      mutable_presideneighbors();
-  const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >&
-      presideneighbors() const;
-
-  // bool canSpawn = 3;
-  void clear_canspawn();
-  static const int kCanSpawnFieldNumber = 3;
-  bool canspawn() const;
-  void set_canspawn(bool value);
-
-  // @@protoc_insertion_point(class_scope:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(class_scope:ew.spawner.SpawnMapEntry)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment > postsidecounterparts_;
-  ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment > presideneighbors_;
-  bool canspawn_;
+  ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment > postsidecounterparts_;
   mutable int _cached_size_;
   friend struct protobuf_spawnset_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class RegionGraphEntry : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ew.spawner.RegionGraphEntry) */ {
+ public:
+  RegionGraphEntry();
+  virtual ~RegionGraphEntry();
+
+  RegionGraphEntry(const RegionGraphEntry& from);
+
+  inline RegionGraphEntry& operator=(const RegionGraphEntry& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RegionGraphEntry& default_instance();
+
+  static inline const RegionGraphEntry* internal_default_instance() {
+    return reinterpret_cast<const RegionGraphEntry*>(
+               &_RegionGraphEntry_default_instance_);
+  }
+
+  void Swap(RegionGraphEntry* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RegionGraphEntry* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  RegionGraphEntry* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const RegionGraphEntry& from);
+  void MergeFrom(const RegionGraphEntry& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output)
+      const PROTOBUF_FINAL {
+    return InternalSerializeWithCachedSizesToArray(
+        ::google::protobuf::io::CodedOutputStream::IsDefaultSerializationDeterministic(), output);
+  }
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(RegionGraphEntry* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .ew.spawner.PostSegment postSideNeighbors = 1;
+  int postsideneighbors_size() const;
+  void clear_postsideneighbors();
+  static const int kPostSideNeighborsFieldNumber = 1;
+  const ::ew::spawner::PostSegment& postsideneighbors(int index) const;
+  ::ew::spawner::PostSegment* mutable_postsideneighbors(int index);
+  ::ew::spawner::PostSegment* add_postsideneighbors();
+  ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >*
+      mutable_postsideneighbors();
+  const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >&
+      postsideneighbors() const;
+
+  // @@protoc_insertion_point(class_scope:ew.spawner.RegionGraphEntry)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment > postsideneighbors_;
+  mutable int _cached_size_;
+  friend struct protobuf_spawnset_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+
 // -------------------------------------------------------------------
 
 
@@ -440,30 +519,57 @@ class SpawnTable : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // map<uint32, .ew.spawner.SpawnEntry> entries = 1;
-  int entries_size() const;
-  void clear_entries();
-  static const int kEntriesFieldNumber = 1;
-  const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >&
-      entries() const;
-  ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >*
-      mutable_entries();
+  // map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
+  int prespawnmap_size() const;
+  void clear_prespawnmap();
+  static const int kPreSpawnMapFieldNumber = 1;
+  const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >&
+      prespawnmap() const;
+  ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >*
+      mutable_prespawnmap();
+
+  // map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+  int postregiongraph_size() const;
+  void clear_postregiongraph();
+  static const int kPostRegionGraphFieldNumber = 2;
+  const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >&
+      postregiongraph() const;
+  ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >*
+      mutable_postregiongraph();
+
+  // uint32 version = 3;
+  void clear_version();
+  static const int kVersionFieldNumber = 3;
+  ::google::protobuf::uint32 version() const;
+  void set_version(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:ew.spawner.SpawnTable)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   typedef ::google::protobuf::internal::MapEntryLite<
-      ::google::protobuf::uint32, ::ew::spawner::SpawnEntry,
+      ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry,
       ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 >
-      SpawnTable_EntriesEntry;
+      SpawnTable_PreSpawnMapEntry;
   ::google::protobuf::internal::MapField<
-      ::google::protobuf::uint32, ::ew::spawner::SpawnEntry,
+      ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry,
       ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
-      0 > entries_;
+      0 > prespawnmap_;
+  typedef ::google::protobuf::internal::MapEntryLite<
+      ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry,
+      ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+      0 >
+      SpawnTable_PostRegionGraphEntry;
+  ::google::protobuf::internal::MapField<
+      ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry,
+      ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+      0 > postregiongraph_;
+  ::google::protobuf::uint32 version_;
   mutable int _cached_size_;
   friend struct protobuf_spawnset_2eproto::TableStruct;
 };
@@ -473,175 +579,181 @@ class SpawnTable : public ::google::protobuf::Message /* @@protoc_insertion_poin
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// SpawnEntry_PreSegment
+// PreSegment
 
 // uint32 id = 1;
-inline void SpawnEntry_PreSegment::clear_id() {
+inline void PreSegment::clear_id() {
   id_ = 0u;
 }
-inline ::google::protobuf::uint32 SpawnEntry_PreSegment::id() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PreSegment.id)
+inline ::google::protobuf::uint32 PreSegment::id() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PreSegment.id)
   return id_;
 }
-inline void SpawnEntry_PreSegment::set_id(::google::protobuf::uint32 value) {
+inline void PreSegment::set_id(::google::protobuf::uint32 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PreSegment.id)
+  // @@protoc_insertion_point(field_set:ew.spawner.PreSegment.id)
 }
 
 // uint32 intersectionSize = 2;
-inline void SpawnEntry_PreSegment::clear_intersectionsize() {
+inline void PreSegment::clear_intersectionsize() {
   intersectionsize_ = 0u;
 }
-inline ::google::protobuf::uint32 SpawnEntry_PreSegment::intersectionsize() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PreSegment.intersectionSize)
+inline ::google::protobuf::uint32 PreSegment::intersectionsize() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PreSegment.intersectionSize)
   return intersectionsize_;
 }
-inline void SpawnEntry_PreSegment::set_intersectionsize(::google::protobuf::uint32 value) {
+inline void PreSegment::set_intersectionsize(::google::protobuf::uint32 value) {
   
   intersectionsize_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PreSegment.intersectionSize)
+  // @@protoc_insertion_point(field_set:ew.spawner.PreSegment.intersectionSize)
 }
 
 // -------------------------------------------------------------------
 
-// SpawnEntry_PostSegment
+// PostSegment
 
-// repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
-inline int SpawnEntry_PostSegment::presidesupports_size() const {
+// repeated .ew.spawner.PreSegment preSideSupports = 1;
+inline int PostSegment::presidesupports_size() const {
   return presidesupports_.size();
 }
-inline void SpawnEntry_PostSegment::clear_presidesupports() {
+inline void PostSegment::clear_presidesupports() {
   presidesupports_.Clear();
 }
-inline const ::ew::spawner::SpawnEntry_PreSegment& SpawnEntry_PostSegment::presidesupports(int index) const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+inline const ::ew::spawner::PreSegment& PostSegment::presidesupports(int index) const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_.Get(index);
 }
-inline ::ew::spawner::SpawnEntry_PreSegment* SpawnEntry_PostSegment::mutable_presidesupports(int index) {
-  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+inline ::ew::spawner::PreSegment* PostSegment::mutable_presidesupports(int index) {
+  // @@protoc_insertion_point(field_mutable:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_.Mutable(index);
 }
-inline ::ew::spawner::SpawnEntry_PreSegment* SpawnEntry_PostSegment::add_presidesupports() {
-  // @@protoc_insertion_point(field_add:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+inline ::ew::spawner::PreSegment* PostSegment::add_presidesupports() {
+  // @@protoc_insertion_point(field_add:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >*
-SpawnEntry_PostSegment::mutable_presidesupports() {
-  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+inline ::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment >*
+PostSegment::mutable_presidesupports() {
+  // @@protoc_insertion_point(field_mutable_list:ew.spawner.PostSegment.preSideSupports)
   return &presidesupports_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >&
-SpawnEntry_PostSegment::presidesupports() const {
-  // @@protoc_insertion_point(field_list:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+inline const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment >&
+PostSegment::presidesupports() const {
+  // @@protoc_insertion_point(field_list:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_;
 }
 
 // uint32 id = 2;
-inline void SpawnEntry_PostSegment::clear_id() {
+inline void PostSegment::clear_id() {
   id_ = 0u;
 }
-inline ::google::protobuf::uint32 SpawnEntry_PostSegment::id() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PostSegment.id)
+inline ::google::protobuf::uint32 PostSegment::id() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.id)
   return id_;
 }
-inline void SpawnEntry_PostSegment::set_id(::google::protobuf::uint32 value) {
+inline void PostSegment::set_id(::google::protobuf::uint32 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PostSegment.id)
+  // @@protoc_insertion_point(field_set:ew.spawner.PostSegment.id)
 }
 
 // uint32 overlapSize = 3;
-inline void SpawnEntry_PostSegment::clear_overlapsize() {
+inline void PostSegment::clear_overlapsize() {
   overlapsize_ = 0u;
 }
-inline ::google::protobuf::uint32 SpawnEntry_PostSegment::overlapsize() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PostSegment.overlapSize)
+inline ::google::protobuf::uint32 PostSegment::overlapsize() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.overlapSize)
   return overlapsize_;
 }
-inline void SpawnEntry_PostSegment::set_overlapsize(::google::protobuf::uint32 value) {
+inline void PostSegment::set_overlapsize(::google::protobuf::uint32 value) {
   
   overlapsize_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PostSegment.overlapSize)
+  // @@protoc_insertion_point(field_set:ew.spawner.PostSegment.overlapSize)
+}
+
+// bool canSpawn = 4;
+inline void PostSegment::clear_canspawn() {
+  canspawn_ = false;
+}
+inline bool PostSegment::canspawn() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.canSpawn)
+  return canspawn_;
+}
+inline void PostSegment::set_canspawn(bool value) {
+  
+  canspawn_ = value;
+  // @@protoc_insertion_point(field_set:ew.spawner.PostSegment.canSpawn)
 }
 
 // -------------------------------------------------------------------
 
-// SpawnEntry
+// SpawnMapEntry
 
-// repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
-inline int SpawnEntry::postsidecounterparts_size() const {
+// repeated .ew.spawner.PostSegment postSideCounterparts = 1;
+inline int SpawnMapEntry::postsidecounterparts_size() const {
   return postsidecounterparts_.size();
 }
-inline void SpawnEntry::clear_postsidecounterparts() {
+inline void SpawnMapEntry::clear_postsidecounterparts() {
   postsidecounterparts_.Clear();
 }
-inline const ::ew::spawner::SpawnEntry_PostSegment& SpawnEntry::postsidecounterparts(int index) const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.postSideCounterparts)
+inline const ::ew::spawner::PostSegment& SpawnMapEntry::postsidecounterparts(int index) const {
+  // @@protoc_insertion_point(field_get:ew.spawner.SpawnMapEntry.postSideCounterparts)
   return postsidecounterparts_.Get(index);
 }
-inline ::ew::spawner::SpawnEntry_PostSegment* SpawnEntry::mutable_postsidecounterparts(int index) {
-  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnEntry.postSideCounterparts)
+inline ::ew::spawner::PostSegment* SpawnMapEntry::mutable_postsidecounterparts(int index) {
+  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnMapEntry.postSideCounterparts)
   return postsidecounterparts_.Mutable(index);
 }
-inline ::ew::spawner::SpawnEntry_PostSegment* SpawnEntry::add_postsidecounterparts() {
-  // @@protoc_insertion_point(field_add:ew.spawner.SpawnEntry.postSideCounterparts)
+inline ::ew::spawner::PostSegment* SpawnMapEntry::add_postsidecounterparts() {
+  // @@protoc_insertion_point(field_add:ew.spawner.SpawnMapEntry.postSideCounterparts)
   return postsidecounterparts_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment >*
-SpawnEntry::mutable_postsidecounterparts() {
-  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnEntry.postSideCounterparts)
+inline ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >*
+SpawnMapEntry::mutable_postsidecounterparts() {
+  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnMapEntry.postSideCounterparts)
   return &postsidecounterparts_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment >&
-SpawnEntry::postsidecounterparts() const {
-  // @@protoc_insertion_point(field_list:ew.spawner.SpawnEntry.postSideCounterparts)
+inline const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >&
+SpawnMapEntry::postsidecounterparts() const {
+  // @@protoc_insertion_point(field_list:ew.spawner.SpawnMapEntry.postSideCounterparts)
   return postsidecounterparts_;
 }
 
-// repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
-inline int SpawnEntry::presideneighbors_size() const {
-  return presideneighbors_.size();
+// -------------------------------------------------------------------
+
+// RegionGraphEntry
+
+// repeated .ew.spawner.PostSegment postSideNeighbors = 1;
+inline int RegionGraphEntry::postsideneighbors_size() const {
+  return postsideneighbors_.size();
 }
-inline void SpawnEntry::clear_presideneighbors() {
-  presideneighbors_.Clear();
+inline void RegionGraphEntry::clear_postsideneighbors() {
+  postsideneighbors_.Clear();
 }
-inline const ::ew::spawner::SpawnEntry_PreSegment& SpawnEntry::presideneighbors(int index) const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_.Get(index);
+inline const ::ew::spawner::PostSegment& RegionGraphEntry::postsideneighbors(int index) const {
+  // @@protoc_insertion_point(field_get:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_.Get(index);
 }
-inline ::ew::spawner::SpawnEntry_PreSegment* SpawnEntry::mutable_presideneighbors(int index) {
-  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_.Mutable(index);
+inline ::ew::spawner::PostSegment* RegionGraphEntry::mutable_postsideneighbors(int index) {
+  // @@protoc_insertion_point(field_mutable:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_.Mutable(index);
 }
-inline ::ew::spawner::SpawnEntry_PreSegment* SpawnEntry::add_presideneighbors() {
-  // @@protoc_insertion_point(field_add:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_.Add();
+inline ::ew::spawner::PostSegment* RegionGraphEntry::add_postsideneighbors() {
+  // @@protoc_insertion_point(field_add:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >*
-SpawnEntry::mutable_presideneighbors() {
-  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnEntry.preSideNeighbors)
-  return &presideneighbors_;
+inline ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >*
+RegionGraphEntry::mutable_postsideneighbors() {
+  // @@protoc_insertion_point(field_mutable_list:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return &postsideneighbors_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >&
-SpawnEntry::presideneighbors() const {
-  // @@protoc_insertion_point(field_list:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_;
+inline const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >&
+RegionGraphEntry::postsideneighbors() const {
+  // @@protoc_insertion_point(field_list:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_;
 }
 
-// bool canSpawn = 3;
-inline void SpawnEntry::clear_canspawn() {
-  canspawn_ = false;
-}
-inline bool SpawnEntry::canspawn() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.canSpawn)
-  return canspawn_;
-}
-inline void SpawnEntry::set_canspawn(bool value) {
-  
-  canspawn_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.canSpawn)
-}
+// -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
@@ -649,25 +761,61 @@ inline void SpawnEntry::set_canspawn(bool value) {
 
 // SpawnTable
 
-// map<uint32, .ew.spawner.SpawnEntry> entries = 1;
-inline int SpawnTable::entries_size() const {
-  return entries_.size();
+// map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
+inline int SpawnTable::prespawnmap_size() const {
+  return prespawnmap_.size();
 }
-inline void SpawnTable::clear_entries() {
-  entries_.Clear();
+inline void SpawnTable::clear_prespawnmap() {
+  prespawnmap_.Clear();
 }
-inline const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >&
-SpawnTable::entries() const {
-  // @@protoc_insertion_point(field_map:ew.spawner.SpawnTable.entries)
-  return entries_.GetMap();
+inline const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >&
+SpawnTable::prespawnmap() const {
+  // @@protoc_insertion_point(field_map:ew.spawner.SpawnTable.preSpawnMap)
+  return prespawnmap_.GetMap();
 }
-inline ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >*
-SpawnTable::mutable_entries() {
-  // @@protoc_insertion_point(field_mutable_map:ew.spawner.SpawnTable.entries)
-  return entries_.MutableMap();
+inline ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >*
+SpawnTable::mutable_prespawnmap() {
+  // @@protoc_insertion_point(field_mutable_map:ew.spawner.SpawnTable.preSpawnMap)
+  return prespawnmap_.MutableMap();
+}
+
+// map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+inline int SpawnTable::postregiongraph_size() const {
+  return postregiongraph_.size();
+}
+inline void SpawnTable::clear_postregiongraph() {
+  postregiongraph_.Clear();
+}
+inline const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >&
+SpawnTable::postregiongraph() const {
+  // @@protoc_insertion_point(field_map:ew.spawner.SpawnTable.postRegionGraph)
+  return postregiongraph_.GetMap();
+}
+inline ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >*
+SpawnTable::mutable_postregiongraph() {
+  // @@protoc_insertion_point(field_mutable_map:ew.spawner.SpawnTable.postRegionGraph)
+  return postregiongraph_.MutableMap();
+}
+
+// uint32 version = 3;
+inline void SpawnTable::clear_version() {
+  version_ = 0u;
+}
+inline ::google::protobuf::uint32 SpawnTable::version() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.SpawnTable.version)
+  return version_;
+}
+inline void SpawnTable::set_version(::google::protobuf::uint32 value) {
+  
+  version_ = value;
+  // @@protoc_insertion_point(field_set:ew.spawner.SpawnTable.version)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
