@@ -349,7 +349,13 @@ app.post('/get_seeds', null, {
         for (const preKey of selection) {
             if (spawnMap[preKey]) {
                 for (const postCandidate of spawnMap[preKey].postSideCounterparts) {
-                    postCandidates.set(postCandidate.id, { segment: postCandidate, groupID: -1 });
+                    if (postCandidates.has(postCandidate.id) === false) {
+                        postCandidates.set(postCandidate.id, { segment: postCandidate, groupID: -1 });
+                    } else if (postCandidate.canSpawn) {
+                        // canSpawn is a postCandidate property that might be different for each selected segment.
+                        // Allow post-side segment to spawn if one of the postCandidates canSpawn properties is true. 
+                        postCandidates.get(postCandidate.id).segment.canSpawn = true;
+                    }
                 }
             }
         }
