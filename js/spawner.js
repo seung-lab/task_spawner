@@ -411,9 +411,11 @@ app.post('/get_seeds', null, {
                     bestMatch = { segID: postSeg.id, score: matchScore, size: postSeg.overlapSize, mappedSize: accumSize }
                 }
             }
-            // No valid post-segment found, so use the best match we got (if any)
-            if (!result[groupID] && bestMatch) {
-                result[groupID] = new Map();
+            // No valid post-segment found (or only no-spawn segments), so add the best match we got (if any)
+            if (bestMatch && (!result[groupID] || [...result[groupID].keys()].every((postSegID) => {
+                return postCandidates.get(postSegID).segment.canSpawn === false
+            }))) {
+                result[groupID] = result[groupID] || new Map();
                 result[groupID].set(bestMatch.segID, bestMatch.size);
                 console.log("No perfect seed found. Chose seg " + bestMatch.segID + " with " + bestMatch.mappedSize + " / " + bestMatch.size + " voxels matching.");
             }
