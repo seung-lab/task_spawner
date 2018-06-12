@@ -66,7 +66,7 @@ void calcSpawnTable(spawner::SpawnTable &spawntable, const CVolume &pre, const C
   std::unordered_map<uint32_t, std::unordered_map<uint32_t, int>> mappingCountsPrePost;
   std::unordered_map<uint32_t, std::unordered_map<uint32_t, int>> mappingCountsPostPre;
   std::unordered_map<uint32_t, int> overlapSizePost;
-  std::unordered_map<uint32_t, std::unordered_set<uint32_t>> neighborsPre;
+  std::unordered_map<uint32_t, std::unordered_set<uint32_t>> neighborsPost;
 #pragma endregion Initialization and sanity checks
 
 #pragma region PostSideMatches
@@ -84,33 +84,33 @@ void calcSpawnTable(spawner::SpawnTable &spawntable, const CVolume &pre, const C
       postROIPos.x() = postVolumeROI.getMin().x();
       for (int64_t x = 0; x < dimROI.x(); ++x, ++preROIPos.x(), ++postROIPos.x()) {
         uint32_t segID = preSegmentation(preROIPos);
-        if (is_valid_segment(segID, pre)) {
-          uint32_t postSegID = postSegmentation(postROIPos);
-          if (postSegID > 0) {
+        uint32_t postSegID = postSegmentation(postROIPos);
+        if (postSegID > 0) {
+          if (segID > 0) {
             mappingCountsPrePost[segID][postSegID]++;
             mappingCountsPostPre[postSegID][segID]++;
             overlapSizePost[postSegID]++;
           }
 
           if (x > 0) {
-            uint32_t neighborSegID = preSegmentation(preROIPos.x() - 1, preROIPos.y(), preROIPos.z());
-            if (neighborSegID > 0 && neighborSegID != segID) {
-              neighborsPre[segID].emplace(neighborSegID);
-              neighborsPre[neighborSegID].emplace(segID);
+            uint32_t neighborSegID = postSegmentation(postROIPos.x() - 1, postROIPos.y(), postROIPos.z());
+            if (neighborSegID > 0 && neighborSegID != postSegID) {
+              neighborsPost[postSegID].emplace(neighborSegID);
+              neighborsPost[neighborSegID].emplace(postSegID);
             }
           }
           if (y > 0) {
-            uint32_t neighborSegID = preSegmentation(preROIPos.x(), preROIPos.y() - 1, preROIPos.z());
-            if (neighborSegID > 0 && neighborSegID != segID) {
-              neighborsPre[segID].emplace(neighborSegID);
-              neighborsPre[neighborSegID].emplace(segID);
+            uint32_t neighborSegID = postSegmentation(postROIPos.x(), postROIPos.y() - 1, postROIPos.z());
+            if (neighborSegID > 0 && neighborSegID != postSegID) {
+              neighborsPost[postSegID].emplace(neighborSegID);
+              neighborsPost[neighborSegID].emplace(postSegID);
             }
           }
           if (z > 0) {
-            uint32_t neighborSegID = preSegmentation(preROIPos.x(), preROIPos.y(), preROIPos.z() - 1);
-            if (neighborSegID > 0 && neighborSegID != segID) {
-              neighborsPre[segID].emplace(neighborSegID);
-              neighborsPre[neighborSegID].emplace(segID);
+            uint32_t neighborSegID = postSegmentation(postROIPos.x(), postROIPos.y(), postROIPos.z() - 1);
+            if (neighborSegID > 0 && neighborSegID != postSegID) {
+              neighborsPost[postSegID].emplace(neighborSegID);
+              neighborsPost[neighborSegID].emplace(postSegID);
             }
           }
         }
@@ -119,10 +119,13 @@ void calcSpawnTable(spawner::SpawnTable &spawntable, const CVolume &pre, const C
   }
 #pragma endregion Find post-side matches
 
-  auto& spawnEntries = *spawntable.mutable_entries();
-
+  auto& spawnEntries = *spawntable.mutable_prespawnmap();
   for (auto preKey : mappingCountsPrePost) {
-    // Post-side counterparts
+    // Check if pre-side segment is allowed to spawn
+    auto segBoundsWorld = vmml::divideVector(pre.GetSegmentBoundsWorld(preKey.first), res);
+    bool preCanSpawn = (intersect(segBoundsWorld, postHalfOverlapWorld).isEmpty() == false) && (is_valid_segment(preKey.first, pre));
+
+    // Set post-side counterparts
     // Possible cases:
     //   A) 1:1 match, the pre-side segment has exactly 1 post-side segment, and vice versa
     //   B) 1:N match, the pre-side segment has multiple post-side segment matches that are fully enclosed (they refer to the same, single pre-side segment)
@@ -133,34 +136,39 @@ void calcSpawnTable(spawner::SpawnTable &spawntable, const CVolume &pre, const C
     // postSeg: post-side segment(s), all overlap with `preSeg` (partially or fully)
     // preSeg: pre-side segment(s), all overlap with `postSeg` (partially or fully), includes the original `preKey`
 
-    spawner::SpawnEntry match;
+    spawner::SpawnMapEntry spawnEntry;
     auto & postSegments = preKey.second;
     for (auto postSeg : postSegments) {
       uint32_t postSegmentID = postSeg.first;
-      spawner::SpawnEntry_PostSegment* postMatch = match.add_postsidecounterparts();
+      auto segBoundsWorld = vmml::divideVector(post.GetSegmentBoundsWorld(postSegmentID), res);
+      bool postCanSpawn = (intersect(segBoundsWorld, postHalfOverlapWorld).isEmpty() == false) && (is_valid_segment(postSegmentID, post));
+
+      spawner::PostSegment* postMatch = spawnEntry.add_postsidecounterparts();
       postMatch->set_id(postSegmentID);
       postMatch->set_overlapsize(overlapSizePost[postSegmentID]);
+      postMatch->set_canspawn(preCanSpawn && postCanSpawn);
 
       for (auto preSeg : mappingCountsPostPre[postSegmentID]) {
         uint32_t preSegmentID = preSeg.first;
-        spawner::SpawnEntry_PreSegment* preSupport = postMatch->add_presidesupports();
+        spawner::PreSegment* preSupport = postMatch->add_presidesupports();
         preSupport->set_id(preSegmentID);
         preSupport->set_intersectionsize(mappingCountsPrePost[preSegmentID][postSegmentID]);
       }
     }
 
-    // Pre-side neighbors
-    for (auto neighbor : neighborsPre[preKey.first]) {
-      spawner::SpawnEntry_PreSegment* preNeighbor = match.add_presideneighbors();
-      preNeighbor->set_id(neighbor);
+    spawnEntries[preKey.first] = std::move(spawnEntry);
+  }
+
+  auto& rgEntries = *spawntable.mutable_postregiongraph();
+  for (auto postKey : neighborsPost) {
+    spawner::RegionGraphEntry rgEntry;
+    // Post-side neighbors
+    for (auto neighbor : postKey.second) {
+      spawner::PostSegment* postNeighbor = rgEntry.add_postsideneighbors();
+      postNeighbor->set_id(neighbor);
     }
 
-    // Can spawn
-    auto segBoundsWorld = vmml::divideVector(pre.GetSegmentBoundsWorld(preKey.first), res);
-    bool canSpawn = (intersect(segBoundsWorld, postHalfOverlapWorld).isEmpty() == false) && (is_valid_segment(preKey.first, pre));
-    match.set_canspawn(canSpawn);
-
-    spawnEntries[preKey.first] = std::move(match);
+    rgEntries[postKey.first] = std::move(rgEntry);
   }
 
 }
@@ -193,6 +201,7 @@ extern "C" CSpawnTableWrapper * SpawnSet_Generate(CInputVolume * pre, CInputVolu
   CVolume post_volume(std::move(post_meta), post_segmentation_vec);
 
   spawner::SpawnTable spawntable;
+  spawntable.set_version(1);
   calcSpawnTable(spawntable, pre_volume, post_volume);
 
   CSpawnTableWrapper * spawntableWrapper = new CSpawnTableWrapper();

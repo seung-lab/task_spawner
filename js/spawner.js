@@ -333,78 +333,97 @@ app.post('/get_seeds', null, {
         console.timeEnd("loading " + spawntable_path);
         console.time("parsing " + spawntable_path);
         const spawnMapEnc = responses[0];
-        const spawnMap = SpawnTableDef.decode(spawnMapEnc).entries;
+        const spawnMapDec = SpawnTableDef.decode(spawnMapEnc);
+        const spawnMap = spawnMapDec.preSpawnMap;
+        const regionGraph = spawnMapDec.postRegionGraph;
+        const version = spawnMapDec.version || 0;
         console.timeEnd("parsing " + spawntable_path);
 
-        // Filter selected segments in overlapping region, attach a default group id to each segment
-        const roiSegments = new Map(segments.filter((segID) => { return spawnMap[segID] }).map((segID) => { return [segID, -1] }));
+        if (version !== 1) {
+            throw(TypeError(`${spawntable_path} version is ${version}, but 1 expected!`));
+        }
 
-        // Connected components using BFS
-        let roiSegGroups = [];
-        for (const segID of roiSegments.keys()) {
-            if (roiSegments.get(segID) !== -1) {
+        // Retrieve post-side candidates for selection
+        const selection = new Set(segments);
+        const postCandidates = new Map();
+        for (const preKey of selection) {
+            if (spawnMap[preKey]) {
+                for (const postCandidate of spawnMap[preKey].postSideCounterparts) {
+                    if (postCandidates.has(postCandidate.id) === false) {
+                        postCandidates.set(postCandidate.id, { segment: postCandidate, groupID: -1 });
+                    } else if (postCandidate.canSpawn) {
+                        // canSpawn is a postCandidate property that might be different for each selected segment.
+                        // Allow post-side segment to spawn if one of the postCandidates canSpawn properties is true. 
+                        postCandidates.get(postCandidate.id).segment.canSpawn = true;
+                    }
+                }
+            }
+        }
+
+        // Connected components using BFS on post-side candidates
+        let postGroups = [];
+        for (const segID of postCandidates.keys()) {
+            if (postCandidates.get(segID).groupID !== -1) {
                 continue;
             }
 
             const queue = [segID];
-            const groupID = roiSegGroups.length;
-            roiSegGroups[groupID] = new Set();
+            const groupID = postGroups.length;
+            postGroups[groupID] = new Set();
 
             while (queue.length > 0) {
                 const seg = queue.pop();
-                roiSegments.set(seg, groupID);
-                roiSegGroups[groupID].add(seg);
-                for (const regiongraphNeighbor of spawnMap[seg].preSideNeighbors) {
-                    if (roiSegments.get(regiongraphNeighbor.id) === -1) {
-                        queue.push(regiongraphNeighbor.id);
+                postCandidates.get(seg).groupID = groupID;
+                postGroups[groupID].add(seg);
+                if (regionGraph[seg]) {
+                    for (const regiongraphNeighbor of regionGraph[seg].postSideNeighbors) {
+                        if (postCandidates.get(regiongraphNeighbor.id) && postCandidates.get(regiongraphNeighbor.id).groupID === -1) {
+                            queue.push(regiongraphNeighbor.id);
+                        }
                     }
                 }
             }
         }
 
-        // Remove connected groups not allowed to spawn (only contains dust, very flat boundary segments, ...)
-        roiSegGroups = roiSegGroups.filter((group) => { return [...group].some((segID) => { return spawnMap[segID].canSpawn === true }) });
-
-        // Retrieve post side equivalents for each group:
-        const result = [];
-        for (const group of roiSegGroups) {
+        let result = [];
+        // Remove segments that don't have enough coverage
+        for (const group of postGroups) {
             const groupID = result.length;
             let bestMatch = null;
-            for (const preKey of group) {
-                for (const postSeg of spawnMap[preKey].postSideCounterparts) {
-                    // Shortcut if post-side segment was already spawned by another pre-side segment
-                    if (result[groupID] && result[groupID].has(postSeg.id)) {
-                        continue;
-                    }
-
-                    // Check if enough pre-side segments are selected to spawn this post-side segment
-                    const requiredSize = match_ratio * postSeg.overlapSize;
-                    let accumSize = 0;
-                    for (const preSeg of postSeg.preSideSupports) {
-                        if (roiSegments.has(preSeg.id)) {
-                            accumSize += preSeg.intersectionSize;
-                        }
-                    }
-                    if (accumSize >= requiredSize) {
-                        result[groupID] = result[groupID] || new Map();
-                        result[groupID].set(postSeg.id, postSeg.overlapSize);
-                    }
-
-                    // Store best match in case we don't find a single valid post-segment for this spawn group
-                    const matchScore = (accumSize + 1000.0) / (postSeg.overlapSize + 2000.0);
-                    if (!bestMatch || matchScore > bestMatch.score) {
-                        bestMatch = { segID: postSeg.id, score: matchScore, size: postSeg.overlapSize, mappedSize: accumSize }
+            for (const postSegID of group) {
+                const postSeg = postCandidates.get(postSegID).segment;
+                const requiredSize = match_ratio * postSeg.overlapSize;
+                let accumSize = 0;
+                for (const preSeg of postSeg.preSideSupports) {
+                    if (selection.has(preSeg.id)) {
+                        accumSize += preSeg.intersectionSize;
                     }
                 }
-            }
 
-            // No valid post-segment found, so use the best match we got
-            if (!result[groupID] && bestMatch) {
-                result[groupID] = new Map();
+                if (accumSize >= requiredSize) {
+                    result[groupID] = result[groupID] || new Map();
+                    result[groupID].set(postSeg.id, postSeg.overlapSize);
+                }
+
+                // Store best (valid) match in case we don't find a single valid post-segment for this spawn group
+                const matchScore = (accumSize + 1000.0) / (postSeg.overlapSize + 2000.0);
+                if (postSeg.canSpawn && (!bestMatch || matchScore > bestMatch.score)) {
+                    bestMatch = { segID: postSeg.id, score: matchScore, size: postSeg.overlapSize, mappedSize: accumSize }
+                }
+            }
+            // No valid post-segment found (or only no-spawn segments), so add the best match we got (if any)
+            if (bestMatch && (!result[groupID] || [...result[groupID].keys()].every((postSegID) => {
+                return postCandidates.get(postSegID).segment.canSpawn === false
+            }))) {
+                result[groupID] = result[groupID] || new Map();
                 result[groupID].set(bestMatch.segID, bestMatch.size);
                 console.log("No perfect seed found. Chose seg " + bestMatch.segID + " with " + bestMatch.mappedSize + " / " + bestMatch.size + " voxels matching.");
             }
         }
+
+        // Remove groups that *only* consist of segments not allowed to spawn (dust, or near boundary)
+        result = result.filter((group) => { return [...group.keys()].some((postSegID) => { return postCandidates.get(postSegID).segment.canSpawn === true }) });
+
         const result_str = JSON.stringify(result.map((map) => { return strMapToObj(map) }));
         console.log(result_str)
         console.timeEnd("get_seeds for " + spawntable_path);

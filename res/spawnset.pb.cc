@@ -19,12 +19,14 @@
 
 namespace ew {
 namespace spawner {
-class SpawnEntry_PreSegmentDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SpawnEntry_PreSegment> {
-} _SpawnEntry_PreSegment_default_instance_;
-class SpawnEntry_PostSegmentDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SpawnEntry_PostSegment> {
-} _SpawnEntry_PostSegment_default_instance_;
-class SpawnEntryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SpawnEntry> {
-} _SpawnEntry_default_instance_;
+class PreSegmentDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PreSegment> {
+} _PreSegment_default_instance_;
+class PostSegmentDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PostSegment> {
+} _PostSegment_default_instance_;
+class SpawnMapEntryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SpawnMapEntry> {
+} _SpawnMapEntry_default_instance_;
+class RegionGraphEntryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<RegionGraphEntry> {
+} _RegionGraphEntry_default_instance_;
 class SpawnTableDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SpawnTable> {
 } _SpawnTable_default_instance_;
 
@@ -33,49 +35,57 @@ namespace protobuf_spawnset_2eproto {
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[5];
+::google::protobuf::Metadata file_level_metadata[7];
 
 }  // namespace
 
 const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PreSegment, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PreSegment, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PreSegment, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PreSegment, intersectionsize_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PreSegment, id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PreSegment, intersectionsize_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PostSegment, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PostSegment, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PostSegment, presidesupports_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PostSegment, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry_PostSegment, overlapsize_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PostSegment, presidesupports_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PostSegment, id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PostSegment, overlapsize_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PostSegment, canspawn_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnMapEntry, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry, postsidecounterparts_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry, presideneighbors_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnEntry, canspawn_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnMapEntry, postsidecounterparts_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegionGraphEntry, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegionGraphEntry, postsideneighbors_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnTable, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnTable, entries_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnTable, prespawnmap_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnTable, postregiongraph_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SpawnTable, version_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
-  { 0, -1, sizeof(SpawnEntry_PreSegment)},
-  { 6, -1, sizeof(SpawnEntry_PostSegment)},
-  { 13, -1, sizeof(SpawnEntry)},
-  { 20, -1, sizeof(SpawnTable)},
+  { 0, -1, sizeof(PreSegment)},
+  { 6, -1, sizeof(PostSegment)},
+  { 14, -1, sizeof(SpawnMapEntry)},
+  { 19, -1, sizeof(RegionGraphEntry)},
+  { 24, -1, sizeof(SpawnTable)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&_SpawnEntry_PreSegment_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_SpawnEntry_PostSegment_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_SpawnEntry_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_PreSegment_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_PostSegment_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_SpawnMapEntry_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_RegionGraphEntry_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_SpawnTable_default_instance_),
 };
 
@@ -97,39 +107,52 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 5);
-  const ::google::protobuf::Descriptor* SpawnTable_EntriesEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[3].descriptor;
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 7);
+  const ::google::protobuf::Descriptor* SpawnTable_PreSpawnMapEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[4].descriptor;
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        SpawnTable_EntriesEntry_descriptor,
+        SpawnTable_PreSpawnMapEntry_descriptor,
         ::google::protobuf::internal::MapEntry<
             ::google::protobuf::uint32,
-            ::ew::spawner::SpawnEntry,
+            ::ew::spawner::SpawnMapEntry,
             ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
             0>::CreateDefaultInstance(
-                SpawnTable_EntriesEntry_descriptor));
+                SpawnTable_PreSpawnMapEntry_descriptor));
+  const ::google::protobuf::Descriptor* SpawnTable_PostRegionGraphEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[5].descriptor;
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        SpawnTable_PostRegionGraphEntry_descriptor,
+        ::google::protobuf::internal::MapEntry<
+            ::google::protobuf::uint32,
+            ::ew::spawner::RegionGraphEntry,
+            ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
+            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+            0>::CreateDefaultInstance(
+                SpawnTable_PostRegionGraphEntry_descriptor));
 }
 
 }  // namespace
 
 void TableStruct::Shutdown() {
-  _SpawnEntry_PreSegment_default_instance_.Shutdown();
+  _PreSegment_default_instance_.Shutdown();
   delete file_level_metadata[0].reflection;
-  _SpawnEntry_PostSegment_default_instance_.Shutdown();
+  _PostSegment_default_instance_.Shutdown();
   delete file_level_metadata[1].reflection;
-  _SpawnEntry_default_instance_.Shutdown();
+  _SpawnMapEntry_default_instance_.Shutdown();
   delete file_level_metadata[2].reflection;
+  _RegionGraphEntry_default_instance_.Shutdown();
+  delete file_level_metadata[3].reflection;
   _SpawnTable_default_instance_.Shutdown();
-  delete file_level_metadata[4].reflection;
+  delete file_level_metadata[6].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::InitProtobufDefaults();
-  _SpawnEntry_PreSegment_default_instance_.DefaultConstruct();
-  _SpawnEntry_PostSegment_default_instance_.DefaultConstruct();
-  _SpawnEntry_default_instance_.DefaultConstruct();
+  _PreSegment_default_instance_.DefaultConstruct();
+  _PostSegment_default_instance_.DefaultConstruct();
+  _SpawnMapEntry_default_instance_.DefaultConstruct();
+  _RegionGraphEntry_default_instance_.DefaultConstruct();
   _SpawnTable_default_instance_.DefaultConstruct();
 }
 
@@ -140,22 +163,26 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\016spawnset.proto\022\new.spawner\"\275\002\n\nSpawnEn"
-      "try\022@\n\024postSideCounterparts\030\001 \003(\0132\".ew.s"
-      "pawner.SpawnEntry.PostSegment\022;\n\020preSide"
-      "Neighbors\030\002 \003(\0132!.ew.spawner.SpawnEntry."
-      "PreSegment\022\020\n\010canSpawn\030\003 \001(\010\0322\n\nPreSegme"
+      "\n\016spawnset.proto\022\new.spawner\"2\n\nPreSegme"
       "nt\022\n\n\002id\030\001 \001(\r\022\030\n\020intersectionSize\030\002 \001(\r"
-      "\032j\n\013PostSegment\022:\n\017preSideSupports\030\001 \003(\013"
-      "2!.ew.spawner.SpawnEntry.PreSegment\022\n\n\002i"
-      "d\030\002 \001(\r\022\023\n\013overlapSize\030\003 \001(\r\"\212\001\n\nSpawnTa"
-      "ble\0224\n\007entries\030\001 \003(\0132#.ew.spawner.SpawnT"
-      "able.EntriesEntry\032F\n\014EntriesEntry\022\013\n\003key"
-      "\030\001 \001(\r\022%\n\005value\030\002 \001(\0132\026.ew.spawner.Spawn"
-      "Entry:\0028\001b\006proto3"
+      "\"q\n\013PostSegment\022/\n\017preSideSupports\030\001 \003(\013"
+      "2\026.ew.spawner.PreSegment\022\n\n\002id\030\002 \001(\r\022\023\n\013"
+      "overlapSize\030\003 \001(\r\022\020\n\010canSpawn\030\004 \001(\010\"F\n\rS"
+      "pawnMapEntry\0225\n\024postSideCounterparts\030\001 \003"
+      "(\0132\027.ew.spawner.PostSegment\"F\n\020RegionGra"
+      "phEntry\0222\n\021postSideNeighbors\030\001 \003(\0132\027.ew."
+      "spawner.PostSegment\"\306\002\n\nSpawnTable\022<\n\013pr"
+      "eSpawnMap\030\001 \003(\0132\'.ew.spawner.SpawnTable."
+      "PreSpawnMapEntry\022D\n\017postRegionGraph\030\002 \003("
+      "\0132+.ew.spawner.SpawnTable.PostRegionGrap"
+      "hEntry\022\017\n\007version\030\003 \001(\r\032M\n\020PreSpawnMapEn"
+      "try\022\013\n\003key\030\001 \001(\r\022(\n\005value\030\002 \001(\0132\031.ew.spa"
+      "wner.SpawnMapEntry:\0028\001\032T\n\024PostRegionGrap"
+      "hEntry\022\013\n\003key\030\001 \001(\r\022+\n\005value\030\002 \001(\0132\034.ew."
+      "spawner.RegionGraphEntry:\0028\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 497);
+      descriptor, 676);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "spawnset.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -178,19 +205,19 @@ struct StaticDescriptorInitializer {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SpawnEntry_PreSegment::kIdFieldNumber;
-const int SpawnEntry_PreSegment::kIntersectionSizeFieldNumber;
+const int PreSegment::kIdFieldNumber;
+const int PreSegment::kIntersectionSizeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-SpawnEntry_PreSegment::SpawnEntry_PreSegment()
+PreSegment::PreSegment()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
     protobuf_spawnset_2eproto::InitDefaults();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(constructor:ew.spawner.PreSegment)
 }
-SpawnEntry_PreSegment::SpawnEntry_PreSegment(const SpawnEntry_PreSegment& from)
+PreSegment::PreSegment(const PreSegment& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _cached_size_(0) {
@@ -198,57 +225,57 @@ SpawnEntry_PreSegment::SpawnEntry_PreSegment(const SpawnEntry_PreSegment& from)
   ::memcpy(&id_, &from.id_,
     reinterpret_cast<char*>(&intersectionsize_) -
     reinterpret_cast<char*>(&id_) + sizeof(intersectionsize_));
-  // @@protoc_insertion_point(copy_constructor:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(copy_constructor:ew.spawner.PreSegment)
 }
 
-void SpawnEntry_PreSegment::SharedCtor() {
+void PreSegment::SharedCtor() {
   ::memset(&id_, 0, reinterpret_cast<char*>(&intersectionsize_) -
     reinterpret_cast<char*>(&id_) + sizeof(intersectionsize_));
   _cached_size_ = 0;
 }
 
-SpawnEntry_PreSegment::~SpawnEntry_PreSegment() {
-  // @@protoc_insertion_point(destructor:ew.spawner.SpawnEntry.PreSegment)
+PreSegment::~PreSegment() {
+  // @@protoc_insertion_point(destructor:ew.spawner.PreSegment)
   SharedDtor();
 }
 
-void SpawnEntry_PreSegment::SharedDtor() {
+void PreSegment::SharedDtor() {
 }
 
-void SpawnEntry_PreSegment::SetCachedSize(int size) const {
+void PreSegment::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SpawnEntry_PreSegment::descriptor() {
+const ::google::protobuf::Descriptor* PreSegment::descriptor() {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_spawnset_2eproto::file_level_metadata[0].descriptor;
 }
 
-const SpawnEntry_PreSegment& SpawnEntry_PreSegment::default_instance() {
+const PreSegment& PreSegment::default_instance() {
   protobuf_spawnset_2eproto::InitDefaults();
   return *internal_default_instance();
 }
 
-SpawnEntry_PreSegment* SpawnEntry_PreSegment::New(::google::protobuf::Arena* arena) const {
-  SpawnEntry_PreSegment* n = new SpawnEntry_PreSegment;
+PreSegment* PreSegment::New(::google::protobuf::Arena* arena) const {
+  PreSegment* n = new PreSegment;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void SpawnEntry_PreSegment::Clear() {
-// @@protoc_insertion_point(message_clear_start:ew.spawner.SpawnEntry.PreSegment)
+void PreSegment::Clear() {
+// @@protoc_insertion_point(message_clear_start:ew.spawner.PreSegment)
   ::memset(&id_, 0, reinterpret_cast<char*>(&intersectionsize_) -
     reinterpret_cast<char*>(&id_) + sizeof(intersectionsize_));
 }
 
-bool SpawnEntry_PreSegment::MergePartialFromCodedStream(
+bool PreSegment::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(parse_start:ew.spawner.PreSegment)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -295,17 +322,17 @@ bool SpawnEntry_PreSegment::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(parse_success:ew.spawner.PreSegment)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(parse_failure:ew.spawner.PreSegment)
   return false;
 #undef DO_
 }
 
-void SpawnEntry_PreSegment::SerializeWithCachedSizes(
+void PreSegment::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(serialize_start:ew.spawner.PreSegment)
   // uint32 id = 1;
   if (this->id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
@@ -316,13 +343,13 @@ void SpawnEntry_PreSegment::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->intersectionsize(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(serialize_end:ew.spawner.PreSegment)
 }
 
-::google::protobuf::uint8* SpawnEntry_PreSegment::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* PreSegment::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.PreSegment)
   // uint32 id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
@@ -333,12 +360,12 @@ void SpawnEntry_PreSegment::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->intersectionsize(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.PreSegment)
   return target;
 }
 
-size_t SpawnEntry_PreSegment::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ew.spawner.SpawnEntry.PreSegment)
+size_t PreSegment::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ew.spawner.PreSegment)
   size_t total_size = 0;
 
   // uint32 id = 1;
@@ -362,23 +389,23 @@ size_t SpawnEntry_PreSegment::ByteSizeLong() const {
   return total_size;
 }
 
-void SpawnEntry_PreSegment::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.SpawnEntry.PreSegment)
+void PreSegment::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.PreSegment)
   GOOGLE_DCHECK_NE(&from, this);
-  const SpawnEntry_PreSegment* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const SpawnEntry_PreSegment>(
+  const PreSegment* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const PreSegment>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.PreSegment)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.SpawnEntry.PreSegment)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.PreSegment)
     MergeFrom(*source);
   }
 }
 
-void SpawnEntry_PreSegment::MergeFrom(const SpawnEntry_PreSegment& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.SpawnEntry.PreSegment)
+void PreSegment::MergeFrom(const PreSegment& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.PreSegment)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.id() != 0) {
@@ -389,68 +416,68 @@ void SpawnEntry_PreSegment::MergeFrom(const SpawnEntry_PreSegment& from) {
   }
 }
 
-void SpawnEntry_PreSegment::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.SpawnEntry.PreSegment)
+void PreSegment::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.PreSegment)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SpawnEntry_PreSegment::CopyFrom(const SpawnEntry_PreSegment& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.SpawnEntry.PreSegment)
+void PreSegment::CopyFrom(const PreSegment& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.PreSegment)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SpawnEntry_PreSegment::IsInitialized() const {
+bool PreSegment::IsInitialized() const {
   return true;
 }
 
-void SpawnEntry_PreSegment::Swap(SpawnEntry_PreSegment* other) {
+void PreSegment::Swap(PreSegment* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void SpawnEntry_PreSegment::InternalSwap(SpawnEntry_PreSegment* other) {
+void PreSegment::InternalSwap(PreSegment* other) {
   std::swap(id_, other->id_);
   std::swap(intersectionsize_, other->intersectionsize_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata SpawnEntry_PreSegment::GetMetadata() const {
+::google::protobuf::Metadata PreSegment::GetMetadata() const {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_spawnset_2eproto::file_level_metadata[0];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// SpawnEntry_PreSegment
+// PreSegment
 
 // uint32 id = 1;
-void SpawnEntry_PreSegment::clear_id() {
+void PreSegment::clear_id() {
   id_ = 0u;
 }
-::google::protobuf::uint32 SpawnEntry_PreSegment::id() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PreSegment.id)
+::google::protobuf::uint32 PreSegment::id() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PreSegment.id)
   return id_;
 }
-void SpawnEntry_PreSegment::set_id(::google::protobuf::uint32 value) {
+void PreSegment::set_id(::google::protobuf::uint32 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PreSegment.id)
+  // @@protoc_insertion_point(field_set:ew.spawner.PreSegment.id)
 }
 
 // uint32 intersectionSize = 2;
-void SpawnEntry_PreSegment::clear_intersectionsize() {
+void PreSegment::clear_intersectionsize() {
   intersectionsize_ = 0u;
 }
-::google::protobuf::uint32 SpawnEntry_PreSegment::intersectionsize() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PreSegment.intersectionSize)
+::google::protobuf::uint32 PreSegment::intersectionsize() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PreSegment.intersectionSize)
   return intersectionsize_;
 }
-void SpawnEntry_PreSegment::set_intersectionsize(::google::protobuf::uint32 value) {
+void PreSegment::set_intersectionsize(::google::protobuf::uint32 value) {
   
   intersectionsize_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PreSegment.intersectionSize)
+  // @@protoc_insertion_point(field_set:ew.spawner.PreSegment.intersectionSize)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -458,86 +485,87 @@ void SpawnEntry_PreSegment::set_intersectionsize(::google::protobuf::uint32 valu
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SpawnEntry_PostSegment::kPreSideSupportsFieldNumber;
-const int SpawnEntry_PostSegment::kIdFieldNumber;
-const int SpawnEntry_PostSegment::kOverlapSizeFieldNumber;
+const int PostSegment::kPreSideSupportsFieldNumber;
+const int PostSegment::kIdFieldNumber;
+const int PostSegment::kOverlapSizeFieldNumber;
+const int PostSegment::kCanSpawnFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-SpawnEntry_PostSegment::SpawnEntry_PostSegment()
+PostSegment::PostSegment()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
     protobuf_spawnset_2eproto::InitDefaults();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ew.spawner.SpawnEntry.PostSegment)
+  // @@protoc_insertion_point(constructor:ew.spawner.PostSegment)
 }
-SpawnEntry_PostSegment::SpawnEntry_PostSegment(const SpawnEntry_PostSegment& from)
+PostSegment::PostSegment(const PostSegment& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       presidesupports_(from.presidesupports_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&id_, &from.id_,
-    reinterpret_cast<char*>(&overlapsize_) -
-    reinterpret_cast<char*>(&id_) + sizeof(overlapsize_));
-  // @@protoc_insertion_point(copy_constructor:ew.spawner.SpawnEntry.PostSegment)
+    reinterpret_cast<char*>(&canspawn_) -
+    reinterpret_cast<char*>(&id_) + sizeof(canspawn_));
+  // @@protoc_insertion_point(copy_constructor:ew.spawner.PostSegment)
 }
 
-void SpawnEntry_PostSegment::SharedCtor() {
-  ::memset(&id_, 0, reinterpret_cast<char*>(&overlapsize_) -
-    reinterpret_cast<char*>(&id_) + sizeof(overlapsize_));
+void PostSegment::SharedCtor() {
+  ::memset(&id_, 0, reinterpret_cast<char*>(&canspawn_) -
+    reinterpret_cast<char*>(&id_) + sizeof(canspawn_));
   _cached_size_ = 0;
 }
 
-SpawnEntry_PostSegment::~SpawnEntry_PostSegment() {
-  // @@protoc_insertion_point(destructor:ew.spawner.SpawnEntry.PostSegment)
+PostSegment::~PostSegment() {
+  // @@protoc_insertion_point(destructor:ew.spawner.PostSegment)
   SharedDtor();
 }
 
-void SpawnEntry_PostSegment::SharedDtor() {
+void PostSegment::SharedDtor() {
 }
 
-void SpawnEntry_PostSegment::SetCachedSize(int size) const {
+void PostSegment::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SpawnEntry_PostSegment::descriptor() {
+const ::google::protobuf::Descriptor* PostSegment::descriptor() {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_spawnset_2eproto::file_level_metadata[1].descriptor;
 }
 
-const SpawnEntry_PostSegment& SpawnEntry_PostSegment::default_instance() {
+const PostSegment& PostSegment::default_instance() {
   protobuf_spawnset_2eproto::InitDefaults();
   return *internal_default_instance();
 }
 
-SpawnEntry_PostSegment* SpawnEntry_PostSegment::New(::google::protobuf::Arena* arena) const {
-  SpawnEntry_PostSegment* n = new SpawnEntry_PostSegment;
+PostSegment* PostSegment::New(::google::protobuf::Arena* arena) const {
+  PostSegment* n = new PostSegment;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void SpawnEntry_PostSegment::Clear() {
-// @@protoc_insertion_point(message_clear_start:ew.spawner.SpawnEntry.PostSegment)
+void PostSegment::Clear() {
+// @@protoc_insertion_point(message_clear_start:ew.spawner.PostSegment)
   presidesupports_.Clear();
-  ::memset(&id_, 0, reinterpret_cast<char*>(&overlapsize_) -
-    reinterpret_cast<char*>(&id_) + sizeof(overlapsize_));
+  ::memset(&id_, 0, reinterpret_cast<char*>(&canspawn_) -
+    reinterpret_cast<char*>(&id_) + sizeof(canspawn_));
 }
 
-bool SpawnEntry_PostSegment::MergePartialFromCodedStream(
+bool PostSegment::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ew.spawner.SpawnEntry.PostSegment)
+  // @@protoc_insertion_point(parse_start:ew.spawner.PostSegment)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
+      // repeated .ew.spawner.PreSegment preSideSupports = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u)) {
@@ -579,6 +607,20 @@ bool SpawnEntry_PostSegment::MergePartialFromCodedStream(
         break;
       }
 
+      // bool canSpawn = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &canspawn_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0 ||
@@ -592,18 +634,18 @@ bool SpawnEntry_PostSegment::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ew.spawner.SpawnEntry.PostSegment)
+  // @@protoc_insertion_point(parse_success:ew.spawner.PostSegment)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ew.spawner.SpawnEntry.PostSegment)
+  // @@protoc_insertion_point(parse_failure:ew.spawner.PostSegment)
   return false;
 #undef DO_
 }
 
-void SpawnEntry_PostSegment::SerializeWithCachedSizes(
+void PostSegment::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ew.spawner.SpawnEntry.PostSegment)
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
+  // @@protoc_insertion_point(serialize_start:ew.spawner.PostSegment)
+  // repeated .ew.spawner.PreSegment preSideSupports = 1;
   for (unsigned int i = 0, n = this->presidesupports_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->presidesupports(i), output);
@@ -619,14 +661,19 @@ void SpawnEntry_PostSegment::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->overlapsize(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:ew.spawner.SpawnEntry.PostSegment)
+  // bool canSpawn = 4;
+  if (this->canspawn() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->canspawn(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:ew.spawner.PostSegment)
 }
 
-::google::protobuf::uint8* SpawnEntry_PostSegment::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* PostSegment::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.SpawnEntry.PostSegment)
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.PostSegment)
+  // repeated .ew.spawner.PreSegment preSideSupports = 1;
   for (unsigned int i = 0, n = this->presidesupports_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -643,15 +690,20 @@ void SpawnEntry_PostSegment::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->overlapsize(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.SpawnEntry.PostSegment)
+  // bool canSpawn = 4;
+  if (this->canspawn() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->canspawn(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.PostSegment)
   return target;
 }
 
-size_t SpawnEntry_PostSegment::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ew.spawner.SpawnEntry.PostSegment)
+size_t PostSegment::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ew.spawner.PostSegment)
   size_t total_size = 0;
 
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
+  // repeated .ew.spawner.PreSegment preSideSupports = 1;
   {
     unsigned int count = this->presidesupports_size();
     total_size += 1UL * count;
@@ -676,6 +728,11 @@ size_t SpawnEntry_PostSegment::ByteSizeLong() const {
         this->overlapsize());
   }
 
+  // bool canSpawn = 4;
+  if (this->canspawn() != 0) {
+    total_size += 1 + 1;
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -683,23 +740,23 @@ size_t SpawnEntry_PostSegment::ByteSizeLong() const {
   return total_size;
 }
 
-void SpawnEntry_PostSegment::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.SpawnEntry.PostSegment)
+void PostSegment::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.PostSegment)
   GOOGLE_DCHECK_NE(&from, this);
-  const SpawnEntry_PostSegment* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const SpawnEntry_PostSegment>(
+  const PostSegment* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const PostSegment>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.SpawnEntry.PostSegment)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.PostSegment)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.SpawnEntry.PostSegment)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.PostSegment)
     MergeFrom(*source);
   }
 }
 
-void SpawnEntry_PostSegment::MergeFrom(const SpawnEntry_PostSegment& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.SpawnEntry.PostSegment)
+void PostSegment::MergeFrom(const PostSegment& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.PostSegment)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   presidesupports_.MergeFrom(from.presidesupports_);
@@ -709,101 +766,119 @@ void SpawnEntry_PostSegment::MergeFrom(const SpawnEntry_PostSegment& from) {
   if (from.overlapsize() != 0) {
     set_overlapsize(from.overlapsize());
   }
+  if (from.canspawn() != 0) {
+    set_canspawn(from.canspawn());
+  }
 }
 
-void SpawnEntry_PostSegment::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.SpawnEntry.PostSegment)
+void PostSegment::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.PostSegment)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SpawnEntry_PostSegment::CopyFrom(const SpawnEntry_PostSegment& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.SpawnEntry.PostSegment)
+void PostSegment::CopyFrom(const PostSegment& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.PostSegment)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SpawnEntry_PostSegment::IsInitialized() const {
+bool PostSegment::IsInitialized() const {
   return true;
 }
 
-void SpawnEntry_PostSegment::Swap(SpawnEntry_PostSegment* other) {
+void PostSegment::Swap(PostSegment* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void SpawnEntry_PostSegment::InternalSwap(SpawnEntry_PostSegment* other) {
+void PostSegment::InternalSwap(PostSegment* other) {
   presidesupports_.UnsafeArenaSwap(&other->presidesupports_);
   std::swap(id_, other->id_);
   std::swap(overlapsize_, other->overlapsize_);
+  std::swap(canspawn_, other->canspawn_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata SpawnEntry_PostSegment::GetMetadata() const {
+::google::protobuf::Metadata PostSegment::GetMetadata() const {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_spawnset_2eproto::file_level_metadata[1];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// SpawnEntry_PostSegment
+// PostSegment
 
-// repeated .ew.spawner.SpawnEntry.PreSegment preSideSupports = 1;
-int SpawnEntry_PostSegment::presidesupports_size() const {
+// repeated .ew.spawner.PreSegment preSideSupports = 1;
+int PostSegment::presidesupports_size() const {
   return presidesupports_.size();
 }
-void SpawnEntry_PostSegment::clear_presidesupports() {
+void PostSegment::clear_presidesupports() {
   presidesupports_.Clear();
 }
-const ::ew::spawner::SpawnEntry_PreSegment& SpawnEntry_PostSegment::presidesupports(int index) const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+const ::ew::spawner::PreSegment& PostSegment::presidesupports(int index) const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_.Get(index);
 }
-::ew::spawner::SpawnEntry_PreSegment* SpawnEntry_PostSegment::mutable_presidesupports(int index) {
-  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+::ew::spawner::PreSegment* PostSegment::mutable_presidesupports(int index) {
+  // @@protoc_insertion_point(field_mutable:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_.Mutable(index);
 }
-::ew::spawner::SpawnEntry_PreSegment* SpawnEntry_PostSegment::add_presidesupports() {
-  // @@protoc_insertion_point(field_add:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+::ew::spawner::PreSegment* PostSegment::add_presidesupports() {
+  // @@protoc_insertion_point(field_add:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >*
-SpawnEntry_PostSegment::mutable_presidesupports() {
-  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment >*
+PostSegment::mutable_presidesupports() {
+  // @@protoc_insertion_point(field_mutable_list:ew.spawner.PostSegment.preSideSupports)
   return &presidesupports_;
 }
-const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >&
-SpawnEntry_PostSegment::presidesupports() const {
-  // @@protoc_insertion_point(field_list:ew.spawner.SpawnEntry.PostSegment.preSideSupports)
+const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PreSegment >&
+PostSegment::presidesupports() const {
+  // @@protoc_insertion_point(field_list:ew.spawner.PostSegment.preSideSupports)
   return presidesupports_;
 }
 
 // uint32 id = 2;
-void SpawnEntry_PostSegment::clear_id() {
+void PostSegment::clear_id() {
   id_ = 0u;
 }
-::google::protobuf::uint32 SpawnEntry_PostSegment::id() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PostSegment.id)
+::google::protobuf::uint32 PostSegment::id() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.id)
   return id_;
 }
-void SpawnEntry_PostSegment::set_id(::google::protobuf::uint32 value) {
+void PostSegment::set_id(::google::protobuf::uint32 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PostSegment.id)
+  // @@protoc_insertion_point(field_set:ew.spawner.PostSegment.id)
 }
 
 // uint32 overlapSize = 3;
-void SpawnEntry_PostSegment::clear_overlapsize() {
+void PostSegment::clear_overlapsize() {
   overlapsize_ = 0u;
 }
-::google::protobuf::uint32 SpawnEntry_PostSegment::overlapsize() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.PostSegment.overlapSize)
+::google::protobuf::uint32 PostSegment::overlapsize() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.overlapSize)
   return overlapsize_;
 }
-void SpawnEntry_PostSegment::set_overlapsize(::google::protobuf::uint32 value) {
+void PostSegment::set_overlapsize(::google::protobuf::uint32 value) {
   
   overlapsize_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.PostSegment.overlapSize)
+  // @@protoc_insertion_point(field_set:ew.spawner.PostSegment.overlapSize)
+}
+
+// bool canSpawn = 4;
+void PostSegment::clear_canspawn() {
+  canspawn_ = false;
+}
+bool PostSegment::canspawn() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.PostSegment.canSpawn)
+  return canspawn_;
+}
+void PostSegment::set_canspawn(bool value) {
+  
+  canspawn_ = value;
+  // @@protoc_insertion_point(field_set:ew.spawner.PostSegment.canSpawn)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -811,84 +886,77 @@ void SpawnEntry_PostSegment::set_overlapsize(::google::protobuf::uint32 value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SpawnEntry::kPostSideCounterpartsFieldNumber;
-const int SpawnEntry::kPreSideNeighborsFieldNumber;
-const int SpawnEntry::kCanSpawnFieldNumber;
+const int SpawnMapEntry::kPostSideCounterpartsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-SpawnEntry::SpawnEntry()
+SpawnMapEntry::SpawnMapEntry()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
     protobuf_spawnset_2eproto::InitDefaults();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(constructor:ew.spawner.SpawnMapEntry)
 }
-SpawnEntry::SpawnEntry(const SpawnEntry& from)
+SpawnMapEntry::SpawnMapEntry(const SpawnMapEntry& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       postsidecounterparts_(from.postsidecounterparts_),
-      presideneighbors_(from.presideneighbors_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  canspawn_ = from.canspawn_;
-  // @@protoc_insertion_point(copy_constructor:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(copy_constructor:ew.spawner.SpawnMapEntry)
 }
 
-void SpawnEntry::SharedCtor() {
-  canspawn_ = false;
+void SpawnMapEntry::SharedCtor() {
   _cached_size_ = 0;
 }
 
-SpawnEntry::~SpawnEntry() {
-  // @@protoc_insertion_point(destructor:ew.spawner.SpawnEntry)
+SpawnMapEntry::~SpawnMapEntry() {
+  // @@protoc_insertion_point(destructor:ew.spawner.SpawnMapEntry)
   SharedDtor();
 }
 
-void SpawnEntry::SharedDtor() {
+void SpawnMapEntry::SharedDtor() {
 }
 
-void SpawnEntry::SetCachedSize(int size) const {
+void SpawnMapEntry::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SpawnEntry::descriptor() {
+const ::google::protobuf::Descriptor* SpawnMapEntry::descriptor() {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_spawnset_2eproto::file_level_metadata[2].descriptor;
 }
 
-const SpawnEntry& SpawnEntry::default_instance() {
+const SpawnMapEntry& SpawnMapEntry::default_instance() {
   protobuf_spawnset_2eproto::InitDefaults();
   return *internal_default_instance();
 }
 
-SpawnEntry* SpawnEntry::New(::google::protobuf::Arena* arena) const {
-  SpawnEntry* n = new SpawnEntry;
+SpawnMapEntry* SpawnMapEntry::New(::google::protobuf::Arena* arena) const {
+  SpawnMapEntry* n = new SpawnMapEntry;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void SpawnEntry::Clear() {
-// @@protoc_insertion_point(message_clear_start:ew.spawner.SpawnEntry)
+void SpawnMapEntry::Clear() {
+// @@protoc_insertion_point(message_clear_start:ew.spawner.SpawnMapEntry)
   postsidecounterparts_.Clear();
-  presideneighbors_.Clear();
-  canspawn_ = false;
 }
 
-bool SpawnEntry::MergePartialFromCodedStream(
+bool SpawnMapEntry::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(parse_start:ew.spawner.SpawnMapEntry)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
+      // repeated .ew.spawner.PostSegment postSideCounterparts = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u)) {
@@ -899,34 +967,6 @@ bool SpawnEntry::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u)) {
-          DO_(input->IncrementRecursionDepth());
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_presideneighbors()));
-        } else {
-          goto handle_unusual;
-        }
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // bool canSpawn = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &canspawn_)));
-        } else {
-          goto handle_unusual;
-        }
         break;
       }
 
@@ -943,69 +983,46 @@ bool SpawnEntry::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(parse_success:ew.spawner.SpawnMapEntry)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(parse_failure:ew.spawner.SpawnMapEntry)
   return false;
 #undef DO_
 }
 
-void SpawnEntry::SerializeWithCachedSizes(
+void SpawnMapEntry::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ew.spawner.SpawnEntry)
-  // repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
+  // @@protoc_insertion_point(serialize_start:ew.spawner.SpawnMapEntry)
+  // repeated .ew.spawner.PostSegment postSideCounterparts = 1;
   for (unsigned int i = 0, n = this->postsidecounterparts_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->postsidecounterparts(i), output);
   }
 
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
-  for (unsigned int i = 0, n = this->presideneighbors_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->presideneighbors(i), output);
-  }
-
-  // bool canSpawn = 3;
-  if (this->canspawn() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->canspawn(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(serialize_end:ew.spawner.SpawnMapEntry)
 }
 
-::google::protobuf::uint8* SpawnEntry::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* SpawnMapEntry::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.SpawnEntry)
-  // repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.SpawnMapEntry)
+  // repeated .ew.spawner.PostSegment postSideCounterparts = 1;
   for (unsigned int i = 0, n = this->postsidecounterparts_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         1, this->postsidecounterparts(i), false, target);
   }
 
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
-  for (unsigned int i = 0, n = this->presideneighbors_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        2, this->presideneighbors(i), false, target);
-  }
-
-  // bool canSpawn = 3;
-  if (this->canspawn() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->canspawn(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.SpawnMapEntry)
   return target;
 }
 
-size_t SpawnEntry::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ew.spawner.SpawnEntry)
+size_t SpawnMapEntry::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ew.spawner.SpawnMapEntry)
   size_t total_size = 0;
 
-  // repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
+  // repeated .ew.spawner.PostSegment postSideCounterparts = 1;
   {
     unsigned int count = this->postsidecounterparts_size();
     total_size += 1UL * count;
@@ -1016,20 +1033,250 @@ size_t SpawnEntry::ByteSizeLong() const {
     }
   }
 
-  // repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SpawnMapEntry::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.SpawnMapEntry)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SpawnMapEntry* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const SpawnMapEntry>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.SpawnMapEntry)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.SpawnMapEntry)
+    MergeFrom(*source);
+  }
+}
+
+void SpawnMapEntry::MergeFrom(const SpawnMapEntry& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.SpawnMapEntry)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  postsidecounterparts_.MergeFrom(from.postsidecounterparts_);
+}
+
+void SpawnMapEntry::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.SpawnMapEntry)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SpawnMapEntry::CopyFrom(const SpawnMapEntry& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.SpawnMapEntry)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SpawnMapEntry::IsInitialized() const {
+  return true;
+}
+
+void SpawnMapEntry::Swap(SpawnMapEntry* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void SpawnMapEntry::InternalSwap(SpawnMapEntry* other) {
+  postsidecounterparts_.UnsafeArenaSwap(&other->postsidecounterparts_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata SpawnMapEntry::GetMetadata() const {
+  protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_spawnset_2eproto::file_level_metadata[2];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// SpawnMapEntry
+
+// repeated .ew.spawner.PostSegment postSideCounterparts = 1;
+int SpawnMapEntry::postsidecounterparts_size() const {
+  return postsidecounterparts_.size();
+}
+void SpawnMapEntry::clear_postsidecounterparts() {
+  postsidecounterparts_.Clear();
+}
+const ::ew::spawner::PostSegment& SpawnMapEntry::postsidecounterparts(int index) const {
+  // @@protoc_insertion_point(field_get:ew.spawner.SpawnMapEntry.postSideCounterparts)
+  return postsidecounterparts_.Get(index);
+}
+::ew::spawner::PostSegment* SpawnMapEntry::mutable_postsidecounterparts(int index) {
+  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnMapEntry.postSideCounterparts)
+  return postsidecounterparts_.Mutable(index);
+}
+::ew::spawner::PostSegment* SpawnMapEntry::add_postsidecounterparts() {
+  // @@protoc_insertion_point(field_add:ew.spawner.SpawnMapEntry.postSideCounterparts)
+  return postsidecounterparts_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >*
+SpawnMapEntry::mutable_postsidecounterparts() {
+  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnMapEntry.postSideCounterparts)
+  return &postsidecounterparts_;
+}
+const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >&
+SpawnMapEntry::postsidecounterparts() const {
+  // @@protoc_insertion_point(field_list:ew.spawner.SpawnMapEntry.postSideCounterparts)
+  return postsidecounterparts_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RegionGraphEntry::kPostSideNeighborsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RegionGraphEntry::RegionGraphEntry()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_spawnset_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ew.spawner.RegionGraphEntry)
+}
+RegionGraphEntry::RegionGraphEntry(const RegionGraphEntry& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      postsideneighbors_(from.postsideneighbors_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:ew.spawner.RegionGraphEntry)
+}
+
+void RegionGraphEntry::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+RegionGraphEntry::~RegionGraphEntry() {
+  // @@protoc_insertion_point(destructor:ew.spawner.RegionGraphEntry)
+  SharedDtor();
+}
+
+void RegionGraphEntry::SharedDtor() {
+}
+
+void RegionGraphEntry::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RegionGraphEntry::descriptor() {
+  protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_spawnset_2eproto::file_level_metadata[3].descriptor;
+}
+
+const RegionGraphEntry& RegionGraphEntry::default_instance() {
+  protobuf_spawnset_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+RegionGraphEntry* RegionGraphEntry::New(::google::protobuf::Arena* arena) const {
+  RegionGraphEntry* n = new RegionGraphEntry;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RegionGraphEntry::Clear() {
+// @@protoc_insertion_point(message_clear_start:ew.spawner.RegionGraphEntry)
+  postsideneighbors_.Clear();
+}
+
+bool RegionGraphEntry::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ew.spawner.RegionGraphEntry)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .ew.spawner.PostSegment postSideNeighbors = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(input->IncrementRecursionDepth());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_postsideneighbors()));
+        } else {
+          goto handle_unusual;
+        }
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ew.spawner.RegionGraphEntry)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ew.spawner.RegionGraphEntry)
+  return false;
+#undef DO_
+}
+
+void RegionGraphEntry::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ew.spawner.RegionGraphEntry)
+  // repeated .ew.spawner.PostSegment postSideNeighbors = 1;
+  for (unsigned int i = 0, n = this->postsideneighbors_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->postsideneighbors(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:ew.spawner.RegionGraphEntry)
+}
+
+::google::protobuf::uint8* RegionGraphEntry::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.RegionGraphEntry)
+  // repeated .ew.spawner.PostSegment postSideNeighbors = 1;
+  for (unsigned int i = 0, n = this->postsideneighbors_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, this->postsideneighbors(i), false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.RegionGraphEntry)
+  return target;
+}
+
+size_t RegionGraphEntry::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ew.spawner.RegionGraphEntry)
+  size_t total_size = 0;
+
+  // repeated .ew.spawner.PostSegment postSideNeighbors = 1;
   {
-    unsigned int count = this->presideneighbors_size();
+    unsigned int count = this->postsideneighbors_size();
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->presideneighbors(i));
+          this->postsideneighbors(i));
     }
-  }
-
-  // bool canSpawn = 3;
-  if (this->canspawn() != 0) {
-    total_size += 1 + 1;
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1039,143 +1286,98 @@ size_t SpawnEntry::ByteSizeLong() const {
   return total_size;
 }
 
-void SpawnEntry::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.SpawnEntry)
+void RegionGraphEntry::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ew.spawner.RegionGraphEntry)
   GOOGLE_DCHECK_NE(&from, this);
-  const SpawnEntry* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const SpawnEntry>(
+  const RegionGraphEntry* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const RegionGraphEntry>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ew.spawner.RegionGraphEntry)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.SpawnEntry)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ew.spawner.RegionGraphEntry)
     MergeFrom(*source);
   }
 }
 
-void SpawnEntry::MergeFrom(const SpawnEntry& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.SpawnEntry)
+void RegionGraphEntry::MergeFrom(const RegionGraphEntry& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.RegionGraphEntry)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  postsidecounterparts_.MergeFrom(from.postsidecounterparts_);
-  presideneighbors_.MergeFrom(from.presideneighbors_);
-  if (from.canspawn() != 0) {
-    set_canspawn(from.canspawn());
-  }
+  postsideneighbors_.MergeFrom(from.postsideneighbors_);
 }
 
-void SpawnEntry::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.SpawnEntry)
+void RegionGraphEntry::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ew.spawner.RegionGraphEntry)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SpawnEntry::CopyFrom(const SpawnEntry& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.SpawnEntry)
+void RegionGraphEntry::CopyFrom(const RegionGraphEntry& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ew.spawner.RegionGraphEntry)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SpawnEntry::IsInitialized() const {
+bool RegionGraphEntry::IsInitialized() const {
   return true;
 }
 
-void SpawnEntry::Swap(SpawnEntry* other) {
+void RegionGraphEntry::Swap(RegionGraphEntry* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void SpawnEntry::InternalSwap(SpawnEntry* other) {
-  postsidecounterparts_.UnsafeArenaSwap(&other->postsidecounterparts_);
-  presideneighbors_.UnsafeArenaSwap(&other->presideneighbors_);
-  std::swap(canspawn_, other->canspawn_);
+void RegionGraphEntry::InternalSwap(RegionGraphEntry* other) {
+  postsideneighbors_.UnsafeArenaSwap(&other->postsideneighbors_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata SpawnEntry::GetMetadata() const {
+::google::protobuf::Metadata RegionGraphEntry::GetMetadata() const {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_spawnset_2eproto::file_level_metadata[2];
+  return protobuf_spawnset_2eproto::file_level_metadata[3];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// SpawnEntry
+// RegionGraphEntry
 
-// repeated .ew.spawner.SpawnEntry.PostSegment postSideCounterparts = 1;
-int SpawnEntry::postsidecounterparts_size() const {
-  return postsidecounterparts_.size();
+// repeated .ew.spawner.PostSegment postSideNeighbors = 1;
+int RegionGraphEntry::postsideneighbors_size() const {
+  return postsideneighbors_.size();
 }
-void SpawnEntry::clear_postsidecounterparts() {
-  postsidecounterparts_.Clear();
+void RegionGraphEntry::clear_postsideneighbors() {
+  postsideneighbors_.Clear();
 }
-const ::ew::spawner::SpawnEntry_PostSegment& SpawnEntry::postsidecounterparts(int index) const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.postSideCounterparts)
-  return postsidecounterparts_.Get(index);
+const ::ew::spawner::PostSegment& RegionGraphEntry::postsideneighbors(int index) const {
+  // @@protoc_insertion_point(field_get:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_.Get(index);
 }
-::ew::spawner::SpawnEntry_PostSegment* SpawnEntry::mutable_postsidecounterparts(int index) {
-  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnEntry.postSideCounterparts)
-  return postsidecounterparts_.Mutable(index);
+::ew::spawner::PostSegment* RegionGraphEntry::mutable_postsideneighbors(int index) {
+  // @@protoc_insertion_point(field_mutable:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_.Mutable(index);
 }
-::ew::spawner::SpawnEntry_PostSegment* SpawnEntry::add_postsidecounterparts() {
-  // @@protoc_insertion_point(field_add:ew.spawner.SpawnEntry.postSideCounterparts)
-  return postsidecounterparts_.Add();
+::ew::spawner::PostSegment* RegionGraphEntry::add_postsideneighbors() {
+  // @@protoc_insertion_point(field_add:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment >*
-SpawnEntry::mutable_postsidecounterparts() {
-  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnEntry.postSideCounterparts)
-  return &postsidecounterparts_;
+::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >*
+RegionGraphEntry::mutable_postsideneighbors() {
+  // @@protoc_insertion_point(field_mutable_list:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return &postsideneighbors_;
 }
-const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PostSegment >&
-SpawnEntry::postsidecounterparts() const {
-  // @@protoc_insertion_point(field_list:ew.spawner.SpawnEntry.postSideCounterparts)
-  return postsidecounterparts_;
-}
-
-// repeated .ew.spawner.SpawnEntry.PreSegment preSideNeighbors = 2;
-int SpawnEntry::presideneighbors_size() const {
-  return presideneighbors_.size();
-}
-void SpawnEntry::clear_presideneighbors() {
-  presideneighbors_.Clear();
-}
-const ::ew::spawner::SpawnEntry_PreSegment& SpawnEntry::presideneighbors(int index) const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_.Get(index);
-}
-::ew::spawner::SpawnEntry_PreSegment* SpawnEntry::mutable_presideneighbors(int index) {
-  // @@protoc_insertion_point(field_mutable:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_.Mutable(index);
-}
-::ew::spawner::SpawnEntry_PreSegment* SpawnEntry::add_presideneighbors() {
-  // @@protoc_insertion_point(field_add:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >*
-SpawnEntry::mutable_presideneighbors() {
-  // @@protoc_insertion_point(field_mutable_list:ew.spawner.SpawnEntry.preSideNeighbors)
-  return &presideneighbors_;
-}
-const ::google::protobuf::RepeatedPtrField< ::ew::spawner::SpawnEntry_PreSegment >&
-SpawnEntry::presideneighbors() const {
-  // @@protoc_insertion_point(field_list:ew.spawner.SpawnEntry.preSideNeighbors)
-  return presideneighbors_;
+const ::google::protobuf::RepeatedPtrField< ::ew::spawner::PostSegment >&
+RegionGraphEntry::postsideneighbors() const {
+  // @@protoc_insertion_point(field_list:ew.spawner.RegionGraphEntry.postSideNeighbors)
+  return postsideneighbors_;
 }
 
-// bool canSpawn = 3;
-void SpawnEntry::clear_canspawn() {
-  canspawn_ = false;
-}
-bool SpawnEntry::canspawn() const {
-  // @@protoc_insertion_point(field_get:ew.spawner.SpawnEntry.canSpawn)
-  return canspawn_;
-}
-void SpawnEntry::set_canspawn(bool value) {
-  
-  canspawn_ = value;
-  // @@protoc_insertion_point(field_set:ew.spawner.SpawnEntry.canSpawn)
-}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
+// ===================================================================
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1186,7 +1388,9 @@ void SpawnEntry::set_canspawn(bool value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SpawnTable::kEntriesFieldNumber;
+const int SpawnTable::kPreSpawnMapFieldNumber;
+const int SpawnTable::kPostRegionGraphFieldNumber;
+const int SpawnTable::kVersionFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SpawnTable::SpawnTable()
@@ -1202,21 +1406,34 @@ SpawnTable::SpawnTable(const SpawnTable& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  const ::google::protobuf::Descriptor*& SpawnTable_EntriesEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[3].descriptor;
-  entries_.SetAssignDescriptorCallback(
+  const ::google::protobuf::Descriptor*& SpawnTable_PreSpawnMapEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[4].descriptor;
+  const ::google::protobuf::Descriptor*& SpawnTable_PostRegionGraphEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[5].descriptor;
+  prespawnmap_.SetAssignDescriptorCallback(
       protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce);
-  entries_.SetEntryDescriptor(
-      &SpawnTable_EntriesEntry_descriptor);
-  entries_.MergeFrom(from.entries_);
+  prespawnmap_.SetEntryDescriptor(
+      &SpawnTable_PreSpawnMapEntry_descriptor);
+  prespawnmap_.MergeFrom(from.prespawnmap_);
+  postregiongraph_.SetAssignDescriptorCallback(
+      protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce);
+  postregiongraph_.SetEntryDescriptor(
+      &SpawnTable_PostRegionGraphEntry_descriptor);
+  postregiongraph_.MergeFrom(from.postregiongraph_);
+  version_ = from.version_;
   // @@protoc_insertion_point(copy_constructor:ew.spawner.SpawnTable)
 }
 
 void SpawnTable::SharedCtor() {
-  const ::google::protobuf::Descriptor*& SpawnTable_EntriesEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[3].descriptor;
-  entries_.SetAssignDescriptorCallback(
+  const ::google::protobuf::Descriptor*& SpawnTable_PreSpawnMapEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[4].descriptor;
+  const ::google::protobuf::Descriptor*& SpawnTable_PostRegionGraphEntry_descriptor = protobuf_spawnset_2eproto::file_level_metadata[5].descriptor;
+  prespawnmap_.SetAssignDescriptorCallback(
       protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce);
-  entries_.SetEntryDescriptor(
-      &SpawnTable_EntriesEntry_descriptor);
+  prespawnmap_.SetEntryDescriptor(
+      &SpawnTable_PreSpawnMapEntry_descriptor);
+  postregiongraph_.SetAssignDescriptorCallback(
+      protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce);
+  postregiongraph_.SetEntryDescriptor(
+      &SpawnTable_PostRegionGraphEntry_descriptor);
+  version_ = 0u;
   _cached_size_ = 0;
 }
 
@@ -1235,7 +1452,7 @@ void SpawnTable::SetCachedSize(int size) const {
 }
 const ::google::protobuf::Descriptor* SpawnTable::descriptor() {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_spawnset_2eproto::file_level_metadata[4].descriptor;
+  return protobuf_spawnset_2eproto::file_level_metadata[6].descriptor;
 }
 
 const SpawnTable& SpawnTable::default_instance() {
@@ -1253,7 +1470,9 @@ SpawnTable* SpawnTable::New(::google::protobuf::Arena* arena) const {
 
 void SpawnTable::Clear() {
 // @@protoc_insertion_point(message_clear_start:ew.spawner.SpawnTable)
-  entries_.Clear();
+  prespawnmap_.Clear();
+  postregiongraph_.Clear();
+  version_ = 0u;
 }
 
 bool SpawnTable::MergePartialFromCodedStream(
@@ -1266,23 +1485,57 @@ bool SpawnTable::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // map<uint32, .ew.spawner.SpawnEntry> entries = 1;
+      // map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(input->IncrementRecursionDepth());
-          SpawnTable_EntriesEntry::Parser< ::google::protobuf::internal::MapField<
-              ::google::protobuf::uint32, ::ew::spawner::SpawnEntry,
+          SpawnTable_PreSpawnMapEntry::Parser< ::google::protobuf::internal::MapField<
+              ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry,
               ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
               ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
               0 >,
-            ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry > > parser(&entries_);
+            ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry > > parser(&prespawnmap_);
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
               input, &parser));
         } else {
           goto handle_unusual;
         }
         input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
+          DO_(input->IncrementRecursionDepth());
+          SpawnTable_PostRegionGraphEntry::Parser< ::google::protobuf::internal::MapField<
+              ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry,
+              ::google::protobuf::internal::WireFormatLite::TYPE_UINT32,
+              ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+              0 >,
+            ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry > > parser(&postregiongraph_);
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, &parser));
+        } else {
+          goto handle_unusual;
+        }
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // uint32 version = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &version_)));
+        } else {
+          goto handle_unusual;
+        }
         break;
       }
 
@@ -1310,43 +1563,87 @@ failure:
 void SpawnTable::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ew.spawner.SpawnTable)
-  // map<uint32, .ew.spawner.SpawnEntry> entries = 1;
-  if (!this->entries().empty()) {
-    typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_pointer
+  // map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
+  if (!this->prespawnmap().empty()) {
+    typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_pointer
         ConstPtr;
     typedef ::google::protobuf::internal::SortItem< ::google::protobuf::uint32, ConstPtr > SortItem;
     typedef ::google::protobuf::internal::CompareByFirstField<SortItem> Less;
 
     if (output->IsSerializationDeterministic() &&
-        this->entries().size() > 1) {
+        this->prespawnmap().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
-          new SortItem[this->entries().size()]);
-      typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::size_type size_type;
+          new SortItem[this->prespawnmap().size()]);
+      typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_iterator
-          it = this->entries().begin();
-          it != this->entries().end(); ++it, ++n) {
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_iterator
+          it = this->prespawnmap().begin();
+          it != this->prespawnmap().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
       }
       ::std::sort(&items[0], &items[n], Less());
-      ::google::protobuf::scoped_ptr<SpawnTable_EntriesEntry> entry;
+      ::google::protobuf::scoped_ptr<SpawnTable_PreSpawnMapEntry> entry;
       for (size_type i = 0; i < n; i++) {
-        entry.reset(entries_.NewEntryWrapper(
+        entry.reset(prespawnmap_.NewEntryWrapper(
             items[i].second->first, items[i].second->second));
         ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
             1, *entry, output);
       }
     } else {
-      ::google::protobuf::scoped_ptr<SpawnTable_EntriesEntry> entry;
-      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_iterator
-          it = this->entries().begin();
-          it != this->entries().end(); ++it) {
-        entry.reset(entries_.NewEntryWrapper(
+      ::google::protobuf::scoped_ptr<SpawnTable_PreSpawnMapEntry> entry;
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_iterator
+          it = this->prespawnmap().begin();
+          it != this->prespawnmap().end(); ++it) {
+        entry.reset(prespawnmap_.NewEntryWrapper(
             it->first, it->second));
         ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
             1, *entry, output);
       }
     }
+  }
+
+  // map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+  if (!this->postregiongraph().empty()) {
+    typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_pointer
+        ConstPtr;
+    typedef ::google::protobuf::internal::SortItem< ::google::protobuf::uint32, ConstPtr > SortItem;
+    typedef ::google::protobuf::internal::CompareByFirstField<SortItem> Less;
+
+    if (output->IsSerializationDeterministic() &&
+        this->postregiongraph().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->postregiongraph().size()]);
+      typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_iterator
+          it = this->postregiongraph().begin();
+          it != this->postregiongraph().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<SpawnTable_PostRegionGraphEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(postregiongraph_.NewEntryWrapper(
+            items[i].second->first, items[i].second->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *entry, output);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<SpawnTable_PostRegionGraphEntry> entry;
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_iterator
+          it = this->postregiongraph().begin();
+          it != this->postregiongraph().end(); ++it) {
+        entry.reset(postregiongraph_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *entry, output);
+      }
+    }
+  }
+
+  // uint32 version = 3;
+  if (this->version() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->version(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:ew.spawner.SpawnTable)
@@ -1356,28 +1653,28 @@ void SpawnTable::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:ew.spawner.SpawnTable)
-  // map<uint32, .ew.spawner.SpawnEntry> entries = 1;
-  if (!this->entries().empty()) {
-    typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_pointer
+  // map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
+  if (!this->prespawnmap().empty()) {
+    typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_pointer
         ConstPtr;
     typedef ::google::protobuf::internal::SortItem< ::google::protobuf::uint32, ConstPtr > SortItem;
     typedef ::google::protobuf::internal::CompareByFirstField<SortItem> Less;
 
     if (deterministic &&
-        this->entries().size() > 1) {
+        this->prespawnmap().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
-          new SortItem[this->entries().size()]);
-      typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::size_type size_type;
+          new SortItem[this->prespawnmap().size()]);
+      typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_iterator
-          it = this->entries().begin();
-          it != this->entries().end(); ++it, ++n) {
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_iterator
+          it = this->prespawnmap().begin();
+          it != this->prespawnmap().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
       }
       ::std::sort(&items[0], &items[n], Less());
-      ::google::protobuf::scoped_ptr<SpawnTable_EntriesEntry> entry;
+      ::google::protobuf::scoped_ptr<SpawnTable_PreSpawnMapEntry> entry;
       for (size_type i = 0; i < n; i++) {
-        entry.reset(entries_.NewEntryWrapper(
+        entry.reset(prespawnmap_.NewEntryWrapper(
             items[i].second->first, items[i].second->second));
         target = ::google::protobuf::internal::WireFormatLite::
                    InternalWriteMessageNoVirtualToArray(
@@ -1385,11 +1682,11 @@ void SpawnTable::SerializeWithCachedSizes(
 ;
       }
     } else {
-      ::google::protobuf::scoped_ptr<SpawnTable_EntriesEntry> entry;
-      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_iterator
-          it = this->entries().begin();
-          it != this->entries().end(); ++it) {
-        entry.reset(entries_.NewEntryWrapper(
+      ::google::protobuf::scoped_ptr<SpawnTable_PreSpawnMapEntry> entry;
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_iterator
+          it = this->prespawnmap().begin();
+          it != this->prespawnmap().end(); ++it) {
+        entry.reset(prespawnmap_.NewEntryWrapper(
             it->first, it->second));
         target = ::google::protobuf::internal::WireFormatLite::
                    InternalWriteMessageNoVirtualToArray(
@@ -1397,6 +1694,54 @@ void SpawnTable::SerializeWithCachedSizes(
 ;
       }
     }
+  }
+
+  // map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+  if (!this->postregiongraph().empty()) {
+    typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_pointer
+        ConstPtr;
+    typedef ::google::protobuf::internal::SortItem< ::google::protobuf::uint32, ConstPtr > SortItem;
+    typedef ::google::protobuf::internal::CompareByFirstField<SortItem> Less;
+
+    if (deterministic &&
+        this->postregiongraph().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->postregiongraph().size()]);
+      typedef ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_iterator
+          it = this->postregiongraph().begin();
+          it != this->postregiongraph().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<SpawnTable_PostRegionGraphEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(postregiongraph_.NewEntryWrapper(
+            items[i].second->first, items[i].second->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       2, *entry, deterministic, target);
+;
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<SpawnTable_PostRegionGraphEntry> entry;
+      for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_iterator
+          it = this->postregiongraph().begin();
+          it != this->postregiongraph().end(); ++it) {
+        entry.reset(postregiongraph_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       2, *entry, deterministic, target);
+;
+      }
+    }
+  }
+
+  // uint32 version = 3;
+  if (this->version() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->version(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:ew.spawner.SpawnTable)
@@ -1407,18 +1752,39 @@ size_t SpawnTable::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:ew.spawner.SpawnTable)
   size_t total_size = 0;
 
-  // map<uint32, .ew.spawner.SpawnEntry> entries = 1;
+  // map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
   total_size += 1 *
-      ::google::protobuf::internal::FromIntSize(this->entries_size());
+      ::google::protobuf::internal::FromIntSize(this->prespawnmap_size());
   {
-    ::google::protobuf::scoped_ptr<SpawnTable_EntriesEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >::const_iterator
-        it = this->entries().begin();
-        it != this->entries().end(); ++it) {
-      entry.reset(entries_.NewEntryWrapper(it->first, it->second));
+    ::google::protobuf::scoped_ptr<SpawnTable_PreSpawnMapEntry> entry;
+    for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >::const_iterator
+        it = this->prespawnmap().begin();
+        it != this->prespawnmap().end(); ++it) {
+      entry.reset(prespawnmap_.NewEntryWrapper(it->first, it->second));
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
     }
+  }
+
+  // map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->postregiongraph_size());
+  {
+    ::google::protobuf::scoped_ptr<SpawnTable_PostRegionGraphEntry> entry;
+    for (::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >::const_iterator
+        it = this->postregiongraph().begin();
+        it != this->postregiongraph().end(); ++it) {
+      entry.reset(postregiongraph_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+  }
+
+  // uint32 version = 3;
+  if (this->version() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->version());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1447,7 +1813,11 @@ void SpawnTable::MergeFrom(const SpawnTable& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:ew.spawner.SpawnTable)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  entries_.MergeFrom(from.entries_);
+  prespawnmap_.MergeFrom(from.prespawnmap_);
+  postregiongraph_.MergeFrom(from.postregiongraph_);
+  if (from.version() != 0) {
+    set_version(from.version());
+  }
 }
 
 void SpawnTable::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1473,34 +1843,68 @@ void SpawnTable::Swap(SpawnTable* other) {
   InternalSwap(other);
 }
 void SpawnTable::InternalSwap(SpawnTable* other) {
-  entries_.Swap(&other->entries_);
+  prespawnmap_.Swap(&other->prespawnmap_);
+  postregiongraph_.Swap(&other->postregiongraph_);
+  std::swap(version_, other->version_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata SpawnTable::GetMetadata() const {
   protobuf_spawnset_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_spawnset_2eproto::file_level_metadata[4];
+  return protobuf_spawnset_2eproto::file_level_metadata[6];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // SpawnTable
 
-// map<uint32, .ew.spawner.SpawnEntry> entries = 1;
-int SpawnTable::entries_size() const {
-  return entries_.size();
+// map<uint32, .ew.spawner.SpawnMapEntry> preSpawnMap = 1;
+int SpawnTable::prespawnmap_size() const {
+  return prespawnmap_.size();
 }
-void SpawnTable::clear_entries() {
-  entries_.Clear();
+void SpawnTable::clear_prespawnmap() {
+  prespawnmap_.Clear();
 }
- const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >&
-SpawnTable::entries() const {
-  // @@protoc_insertion_point(field_map:ew.spawner.SpawnTable.entries)
-  return entries_.GetMap();
+ const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >&
+SpawnTable::prespawnmap() const {
+  // @@protoc_insertion_point(field_map:ew.spawner.SpawnTable.preSpawnMap)
+  return prespawnmap_.GetMap();
 }
- ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnEntry >*
-SpawnTable::mutable_entries() {
-  // @@protoc_insertion_point(field_mutable_map:ew.spawner.SpawnTable.entries)
-  return entries_.MutableMap();
+ ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::SpawnMapEntry >*
+SpawnTable::mutable_prespawnmap() {
+  // @@protoc_insertion_point(field_mutable_map:ew.spawner.SpawnTable.preSpawnMap)
+  return prespawnmap_.MutableMap();
+}
+
+// map<uint32, .ew.spawner.RegionGraphEntry> postRegionGraph = 2;
+int SpawnTable::postregiongraph_size() const {
+  return postregiongraph_.size();
+}
+void SpawnTable::clear_postregiongraph() {
+  postregiongraph_.Clear();
+}
+ const ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >&
+SpawnTable::postregiongraph() const {
+  // @@protoc_insertion_point(field_map:ew.spawner.SpawnTable.postRegionGraph)
+  return postregiongraph_.GetMap();
+}
+ ::google::protobuf::Map< ::google::protobuf::uint32, ::ew::spawner::RegionGraphEntry >*
+SpawnTable::mutable_postregiongraph() {
+  // @@protoc_insertion_point(field_mutable_map:ew.spawner.SpawnTable.postRegionGraph)
+  return postregiongraph_.MutableMap();
+}
+
+// uint32 version = 3;
+void SpawnTable::clear_version() {
+  version_ = 0u;
+}
+::google::protobuf::uint32 SpawnTable::version() const {
+  // @@protoc_insertion_point(field_get:ew.spawner.SpawnTable.version)
+  return version_;
+}
+void SpawnTable::set_version(::google::protobuf::uint32 value) {
+  
+  version_ = value;
+  // @@protoc_insertion_point(field_set:ew.spawner.SpawnTable.version)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
